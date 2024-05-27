@@ -1,0 +1,71 @@
+<div *ngIf="loginForm" class="login">
+  <form [formGroup]="loginForm" (ngSubmit)="login($event)" class="login__form">
+    <h3 class="login__title">Вход в учетную запись</h3>
+
+    <div class="mt-8 control"
+      [ngClass]="{
+        'control--error': loginForm.get('email')?.invalid && loginForm.get('email')?.touched
+      }"
+    >
+    <label class="control__caption" for="email">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <use xlink:href="assets/icons/common.sprites.svg#mail"></use>
+        </svg>
+        Email
+    </label>
+      <input
+        class="control__input"
+        type="email"
+        id="email"
+        formControlName="email"
+        placeholder="example@mail.ru"
+        autocomplete="off"
+      />
+      <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+        <span *ngIf="loginForm.get('email')?.hasError('required')" class="control__error">
+          Укажите адрес эл.почты
+        </span>
+        <span *ngIf="loginForm.get('email')?.hasError('email')" class="control__error">
+          Неверный формат адреса эл.почты
+        </span>
+      </div>
+    </div>
+
+    <div class="mt-4 control"
+      [ngClass]="{
+        'control--error': loginForm.get('password')?.invalid && loginForm.get('password')?.touched
+      }"
+    >
+      <label class="control__caption" for="password">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <use xlink:href="assets/icons/common.sprites.svg#lock"></use>
+        </svg>
+        Пароль
+      </label>
+      <input
+        class="control__input"
+        type="password"
+        id="password"
+        formControlName="password"
+        placeholder="********"
+      />
+      <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+        <span *ngIf="loginForm.get('password')?.hasError('required')" class="control__error">
+          Укажите пароль
+        </span>
+        <span *ngIf="loginForm.get('password')?.hasError('minlength')" class="control__error">
+          Мин. длина пароля {{passwordMinLength}} символов
+        </span>
+      </div>
+    </div>
+
+    <a href="javascript:void(0)" class="login__forgot">Забыли пароль?</a>
+
+    <button class="mt-6 !p-4 w-full btn" type="submit" [disabled]="loginForm.invalid">Войти</button>
+
+    <p class="login__register">
+      Нет учетной записи?
+      <a href="javascript:void(0)" (click)="moveToRegister()">Зарегестрироваться</a>
+    </p>
+  </form>
+</div>

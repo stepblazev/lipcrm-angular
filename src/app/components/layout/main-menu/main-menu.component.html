@@ -1,0 +1,27 @@
+<aside class="menu" [ngClass]="{'menu--small': !isWide}">
+    <a routerLink="/" class="menu__logo">
+        <span>CRM</span>
+        <svg class="fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <use xlink:href="assets/icons/common.sprites.svg#crm"></use>
+        </svg>
+    </a>
+    <nav class="mt-8 menu__nav">
+        <ul *ngFor="let group of links" class="menu__group">
+            <li *ngFor="let link of group" class="menu__item">
+                <a [routerLink]="link.href" class="menu__link" [ngClass]="{ 'menu__link--active': isActiveRoute(link.href) }" [title]="link.description">
+                    <svg *ngIf="link.spriteId" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <use [attr.xlink:href]="'assets/icons/main-menu.sprites.svg#'+link.spriteId"></use>
+                    </svg>
+                    <span>{{ link.name }}</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <button type="button" class="menu__sizer" (click)="setIsWide(!isWide)">
+        <div class="transition" [ngClass]="{'rotate-180':isWide}">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <use xlink:href="assets/icons/common.sprites.svg#menu-arrow"></use>
+            </svg>
+        </div>
+    </button>
+</aside>

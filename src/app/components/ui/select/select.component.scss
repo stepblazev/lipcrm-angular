@@ -1,0 +1,52 @@
+.select {
+    @apply relative w-full select-none cursor-pointer;
+  
+    &__current {
+      @apply p-2 pr-8 h-[38.55px] flex items-center border-[1px] border-b-[3px] border-light bg-white text-body-1 whitespace-nowrap leading-none transition;
+  
+      &--opened {
+        @apply border-primary;
+  
+        .select__icon {
+          svg {
+            @apply stroke-primary rotate-180;
+          }
+        }
+      }
+    }
+  
+    &__icon {
+      svg {
+        @apply absolute top-[50%] translate-y-[-50%] right-[12px] w-5 h-5 stroke-light transition-[stroke];
+      }
+    }
+  
+    &__options {
+      @apply max-h-[224px] absolute top-full mt-1 left-0 w-full z-10 bg-light border-y-[3px] border-light transition-all drop-shadow-lg overflow-y-auto;
+  
+      &--hidden {
+        @apply opacity-0 scale-90;
+        visibility: hidden;
+      }
+    }
+  
+    &__option {
+      @apply py-[10px] px-3 flex items-center whitespace-nowrap border-x-[3px] border-light;
+      transition: all 0.2s ease;
+  
+      &:not(.select__option--current):hover {
+        @apply text-primary bg-white;
+      }
+  
+      &--current {
+        @apply text-primary cursor-default;
+      }
+    }
+    
+    &--disabled {
+        @apply cursor-default;
+    }
+    &--disabled &__current {
+        @apply bg-light;
+    }
+  }

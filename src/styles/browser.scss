@@ -1,0 +1,15 @@
+::-webkit-scrollbar {
+    @apply w-[6px];
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-opacity-0;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-white rounded-lg transition-all;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    // @apply bg-gray5;
+  }

@@ -1,0 +1,19 @@
+.confirm {
+  @apply max-w-[600px] min-w-[400px];
+
+  &__title {
+    @apply text-[1.5rem];
+  }
+
+  &__message {
+    @apply mt-4 text-body-1;
+  }
+
+  &__controls {
+    @apply mt-8 flex justify-end;
+    
+    button {
+        @apply w-auto;
+    }
+  }
+}

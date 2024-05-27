@@ -1,0 +1,127 @@
+<div *ngIf="registerForm" class="register">
+    <form [formGroup]="registerForm" (ngSubmit)="register($event)" class="register__form">
+        <h3 class="register__title">Регистрация учетной записи</h3>
+
+        <div class="mt-8 flex gap-4">
+            <div class="control" [ngClass]="{
+                'control--error': 
+                    registerForm.get('first_name')?.invalid && 
+                    registerForm.get('first_name')?.touched
+              }">
+                <label class="control__caption" for="first_name">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <use xlink:href="assets/icons/common.sprites.svg#user"></use>
+                    </svg>
+                    Имя
+                </label>
+                <input class="control__input" type="text" id="first_name" formControlName="first_name" placeholder="John" />
+                <div *ngIf="registerForm.get('first_name')?.invalid && registerForm.get('first_name')?.touched">
+                    <span *ngIf="registerForm.get('first_name')?.hasError('required')" class="control__error">
+                        Укажите имя
+                    </span>
+                    <span *ngIf="registerForm.get('first_name')?.hasError('minlength')" class="control__error">
+                        Мин. 3 символа
+                    </span>
+                </div>
+            </div>
+            <div class="control" [ngClass]="{
+                'control--error': 
+                    registerForm.get('last_name')?.invalid && 
+                    registerForm.get('last_name')?.touched
+              }">
+                <label class="control__caption" for="last_name">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <use xlink:href="assets/icons/common.sprites.svg#user"></use>
+                    </svg>
+                    Фамилия
+                </label>
+                <input class="control__input" type="text" id="last_name" formControlName="last_name" placeholder="Doe" />
+                <div *ngIf="registerForm.get('last_name')?.invalid && registerForm.get('last_name')?.touched">
+                    <span *ngIf="registerForm.get('last_name')?.hasError('required')" class="control__error">
+                        Укажите фамилию
+                    </span>
+                    <span *ngIf="registerForm.get('last_name')?.hasError('minlength')" class="control__error">
+                        Мин. 3 символа
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="mt-4 control" [ngClass]="{
+            'control--error': 
+                registerForm.get('email')?.invalid && 
+                registerForm.get('email')?.touched
+          }">
+            <label class="control__caption" for="email">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <use xlink:href="assets/icons/common.sprites.svg#mail"></use>
+                </svg>
+                Email
+            </label>
+            <input class="control__input" type="email" id="email" formControlName="email" placeholder="example@mail.ru" autocomplete="off" />
+            <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+                <span *ngIf="registerForm.get('email')?.hasError('required')" class="control__error">
+                    Укажите адрес эл.почты
+                </span>
+                <span *ngIf="registerForm.get('email')?.hasError('email')" class="control__error">
+                    Неверный формат адреса эл.почты
+                </span>
+            </div>
+        </div>
+        <div class="mt-4 control" [ngClass]="{
+            'control--error': 
+                (registerForm.get('password')?.invalid && 
+                    registerForm.get('password')?.touched) || 
+                (registerForm.hasError('passwordsMismatch') && 
+                    registerForm.get('password_repeat')?.touched)
+          }">
+            <label class="control__caption" for="password">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <use xlink:href="assets/icons/common.sprites.svg#lock"></use>
+                </svg>
+                Пароль
+            </label>
+            <input class="control__input" type="password" id="password" formControlName="password" placeholder="********" />
+            <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+                <span *ngIf="registerForm.get('password')?.hasError('required')" class="control__error">
+                    Укажите пароль
+                </span>
+                <span *ngIf="registerForm.get('password')?.hasError('minlength')" class="control__error">
+                    Мин. длина пароля {{passwordMinLength}} символов
+                </span>
+            </div>
+        </div>
+        <div class="mt-4 control" [ngClass]="{
+            'control--error': 
+            (registerForm.get('password_repeat')?.invalid && 
+                registerForm.get('password_repeat')?.touched) || 
+            (registerForm.hasError('passwordsMismatch') && 
+                registerForm.get('password_repeat')?.touched)
+          }">
+            <label class="control__caption" for="password_repeat">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <use xlink:href="assets/icons/common.sprites.svg#lock"></use>
+                </svg>
+                Повторите пароль
+            </label>
+            <input class="control__input" type="password" id="password_repeat" formControlName="password_repeat" placeholder="********" />
+            <div *ngIf="registerForm.get('password_repeat')?.invalid && registerForm.get('password_repeat')?.touched">
+                <span *ngIf="registerForm.get('password_repeat')?.hasError('required')" class="control__error">
+                    Укажите пароль
+                </span>
+                <span *ngIf="registerForm.get('password_repeat')?.hasError('minlength')" class="control__error">
+                    Мин. длина пароля {{passwordMinLength}} символов
+                </span>
+            </div>
+            <span *ngIf="registerForm?.hasError('passwordsMismatch') && registerForm.get('password')?.valid && registerForm.get('password_repeat')?.valid" class="control__error">
+                Пароли не совпадают
+            </span>
+        </div>
+
+        <button class="mt-8 !p-4 w-full btn-alt" type="submit" [disabled]="registerForm.invalid">Зарегестрироваться</button>
+
+        <p class="register__login">
+            Уже есть учетная запись?
+            <a href="javascript:void(0)" (click)="moveToLogin()">Войти</a>
+        </p>
+    </form>
+</div>

@@ -1,0 +1,25 @@
+.mat-mdc-header-row {
+  @apply h-[40px] font-semibold drop-shadow-md shadow-dark text-body-1 sticky top-[56px] border-t-0 bg-white z-10 cursor-pointer;
+
+  [aria-sort="ascending"],
+  [aria-sort="descending"] {
+    @apply bg-light;
+  }
+}
+
+.mat-mdc-row {
+  @apply h-[60px] transition text-body-1 select-none cursor-pointer;
+
+  &:hover,
+  &._active {
+    @apply bg-light;
+  }
+}
+
+.mat-mdc-cell {
+  @apply border-light;
+}
+
+.mat-sort-header {
+  @apply border-light select-none whitespace-nowrap;
+}

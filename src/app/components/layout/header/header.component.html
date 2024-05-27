@@ -1,0 +1,44 @@
+<header class="bg-white border-light h-[56px] w-full flex justify-end items-center sticky top-0 border-b-[1px] z-30">
+  <div class="flex-grow pl-6">
+    <app-breadcrumbs />
+  </div>
+  
+  <div
+    class="px-4 relative h-full flex items-center cursor-pointer transition hover:bg-light"
+    [ngClass]="{ 'bg-light': isMenuOpened }"
+    (mouseenter)="isMenuOpened = true"
+    (mouseleave)="isMenuOpened = false"
+  >
+    <div *ngIf="userService.currentUser?.avatar" class="w-8 h-8 overflow-hidden">
+      <img
+        src="{{ userService.currentUser?.avatar }}"
+        class="w-full h-full object-cover object-center"
+        alt=""
+      />
+    </div>
+    <div class="ml-4 select-none">
+      <div class="text-body-1 whitespace-nowrap">
+        {{ userService.currentUser?.first_name }}&nbsp;{{
+          userService.currentUser?.last_name
+        }}
+      </div>
+      <div class="text-body-3 whitespace-nowrap text-gray opacity-50">
+        {{ userService.currentUser?.email }}
+      </div>
+    </div>
+
+    <div class="absolute top-full left-0 max-w-full min-w-full rounded-b overflow-hidden invisible opacity-0 transition-all"
+      [ngClass]="{'!visible !opacity-100': isMenuOpened}"
+      (click)="$event.stopPropagation()"
+    >
+      <div class="bg-light p-4 flex flex-col justify-end cursor-default">
+        <button type="button" class="w-full btn btn--error" (click)="logout()">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <use xlink:href="assets/icons/common.sprites.svg#exit-door"></use>
+          </svg>
+          Выйти
+        </button>
+      </div>
+    </div>
+  </div>
+</header>

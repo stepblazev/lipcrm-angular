@@ -1,0 +1,56 @@
+.control {
+  @apply relative;
+
+  &__caption {
+    @apply mb-1 flex items-center gap-1 text-dark text-body-2 transition cursor-pointer;
+
+    svg {
+      @apply stroke-dark w-4 h-4 transition;
+    }
+  }
+
+  &__input {
+    @apply p-2 text-dark w-full border-light border-[1px] border-b-[3px] bg-white outline-none transition leading-none;
+
+    &:not(:focus):hover {
+      @apply bg-light;
+    }
+    
+    &:disabled {
+        @apply bg-light;
+    }
+  }
+
+  &::after {
+    @apply w-0 h-[3px] absolute bottom-0 left-[50%] translate-x-[-50%] bg-primary transition-all duration-300;
+    content: "";
+  }
+
+  &:focus-within::after {
+    @apply w-full;
+  }
+
+  &:not(&--error):focus-within &__caption {
+    @apply text-primary;
+
+    svg {
+      @apply stroke-primary;
+    }
+  }
+
+  &__error {
+    @apply text-error text-body-3 text-right absolute top-full mt-1 right-0;
+  }
+
+  &--error &__caption {
+    @apply text-error;
+
+    svg {
+      @apply stroke-error;
+    }
+  }
+
+  &--error::after {
+    @apply bg-error;
+  }
+}

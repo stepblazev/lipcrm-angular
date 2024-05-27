@@ -1,0 +1,44 @@
+.btn {
+  @apply rounded bg-primary border-[1px] border-primary text-white px-4 py-2 text-button transition duration-300;
+  @apply flex items-center justify-center gap-2;
+
+  svg {
+    @apply ml-[-0.5rem] h-5 w-5 stroke-white transition;
+  }
+
+  &:hover {
+    @apply bg-darkprimary border-darkprimary;
+  }
+
+  &:active {
+    @apply bg-primary border-primary;
+  }
+
+  &--success {
+    @apply bg-success border-success;
+
+    &:hover {
+      @apply bg-darksuccess border-darksuccess;
+    }
+
+    &:active {
+      @apply bg-success border-success;
+    }
+  }
+
+  &--error {
+    @apply bg-error border-error;
+
+    &:hover {
+      @apply bg-darkerror border-darkerror;
+    }
+
+    &:active {
+      @apply bg-error border-error;
+    }
+  }
+
+  &:disabled {
+    @apply border-light bg-light text-white;
+  }
+}

@@ -1,0 +1,10 @@
+<div class="popup" [ngStyle]="{visibility: isOpened ? 'visible': 'hidden'}">
+    <div class="popup__backdrop" (click)="closeModal()" [@backdropState]="isOpened ? 'visible' : 'hidden'"></div>
+    <div class="popup__container" [@popupState]="isOpened ? 'visible' : 'hidden'">
+        <div class="popup__window container">
+            <div class="popup__content">
+                <ng-content />
+            </div>
+        </div>
+    </div>
+</div>

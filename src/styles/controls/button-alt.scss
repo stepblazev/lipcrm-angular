@@ -1,0 +1,68 @@
+.btn-alt {
+  @apply rounded bg-white text-dark px-4 py-2 text-button border-[1px] border-dark transition duration-300;
+  @apply flex items-center justify-center gap-2;
+
+  svg {
+    @apply ml-[-0.5rem] h-5 w-5 stroke-dark transition;
+  }
+
+  &:hover {
+    @apply border-light bg-light;
+  }
+
+  &:active {
+    @apply border-dark bg-dark text-white;
+    svg {
+      @apply stroke-white;
+    }
+  }
+
+  &--success {
+    @apply border-success text-success;
+    svg {
+      @apply stroke-success;
+    }
+
+    &:hover {
+      @apply border-darksuccess text-darksuccess;
+      svg {
+        @apply stroke-darksuccess;
+      }
+    }
+
+    &:active {
+      @apply border-success text-success bg-white;
+      svg {
+        @apply stroke-success;
+      }
+    }
+  }
+
+  &--error {
+    @apply border-error text-error;
+    svg {
+      @apply stroke-error;
+    }
+
+    &:hover {
+      @apply border-darkerror text-darkerror;
+      svg {
+        @apply stroke-darkerror;
+      }
+    }
+
+    &:active {
+      @apply border-error text-error bg-white;
+      svg {
+        @apply stroke-error;
+      }
+    }
+  }
+
+  &:disabled {
+    @apply border-light bg-light text-white;
+    svg {
+      @apply stroke-white;
+    }
+  }
+}

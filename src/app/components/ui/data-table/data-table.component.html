@@ -1,0 +1,34 @@
+<table matSort mat-table [dataSource]="dataSource">
+
+    <ng-container *ngIf="allowSelect" matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+            <mat-checkbox *ngIf="dataSource.data.length" color="primary"
+                [checked]="selectedRows.length == dataSource.data.length" (change)="setSelectForAll($event.checked)" />
+        </th>
+        <td mat-cell *matCellDef="let element">
+            <mat-checkbox color="primary" [checked]="selectedRows.includes(element.id)" />
+        </td>
+    </ng-container>
+
+    <ng-container *ngFor="let column of columns" [matColumnDef]="column.key">
+
+        <ng-container *ngIf="column.sort">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                {{ column.alias }}
+            </th>
+        </ng-container>
+
+        <ng-container *ngIf="!column.sort">
+            <th mat-header-cell *matHeaderCellDef>
+                {{ column.alias }}
+            </th>
+        </ng-container>
+
+        <td mat-cell *matCellDef="let element">{{ convertTypes(element[column.key] ?? '-') }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="toggleSelect(row.id)"
+        (dblclick)="dblClickItem.emit(row)" [ngClass]="{ _active: selectedRows.includes(row.id) }"></tr>
+
+</table>

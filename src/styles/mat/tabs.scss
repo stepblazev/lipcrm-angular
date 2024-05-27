@@ -1,0 +1,12 @@
+.mdc-tab__text-label {
+    @apply pb-2 text-body-1 font-medium tracking-normal;
+}
+
+.mat-mdc-tab:not(.mdc-tab--active) .mdc-tab__text-label {
+    @apply text-gray;
+}
+
+.mdc-tab-indicator__content {
+    // border-radius: 5px !important;
+    border-width: 2px !important;
+}

@@ -1,0 +1,10 @@
+<app-popup [isOpened]="confirmService.isOpened" (closeEvent)="confirmService.closeConfirm()">
+    <div class="confirm">
+        <h5 class="confirm__title">{{ confirmService.data.title }}</h5>
+        <p class="confirm__message">{{ confirmService.data.message }}</p>
+        <div class="confirm__controls">
+            <button class="btn mr-4" (click)="confirm(true)">Подтвердить</button>
+            <button class="btn-alt" (click)="confirm(false)">Отменить</button>
+        </div>
+    </div>
+</app-popup>

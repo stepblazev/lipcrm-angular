@@ -1,0 +1,30 @@
+.login {
+  &__form {
+    @apply max-w-[400px] w-[400px] px-2;
+    @apply max-phone:w-full;
+  }
+
+  &__title {
+    @apply text-[1.5rem];
+  }
+
+  &__forgot {
+    @apply mt-6 block text-body-2 text-primary font-bold transition;
+
+    &:hover {
+      @apply text-darkprimary;
+    }
+  }
+
+  &__register {
+    @apply mt-6 text-center text-body-2;
+
+    a {
+      @apply text-primary font-bold transition;
+
+      &:hover {
+        @apply text-darkprimary;
+      }
+    }
+  }
+}
