@@ -1,5 +1,5 @@
 .btn-alt {
-  @apply rounded bg-white text-dark px-4 py-2 text-button border-[1px] border-dark transition duration-300;
+  @apply rounded-md bg-[transparent] text-primary px-4 py-3 text-button bg-primary bg-opacity-0 transition duration-300;
   @apply flex items-center justify-center gap-2;
 
   svg {
@@ -7,31 +7,31 @@
   }
 
   &:hover {
-    @apply border-light bg-light;
-  }
+    @apply text-darkprimary bg-opacity-10;
 
-  &:active {
-    @apply border-dark bg-dark text-white;
     svg {
-      @apply stroke-white;
+      @apply stroke-darkprimary;
     }
   }
 
   &--success {
-    @apply border-success text-success;
+    @apply bg-success text-success;
+
     svg {
       @apply stroke-success;
     }
 
     &:hover {
-      @apply border-darksuccess text-darksuccess;
+      @apply text-darksuccess;
+
       svg {
         @apply stroke-darksuccess;
       }
     }
 
     &:active {
-      @apply border-success text-success bg-white;
+      @apply text-success;
+
       svg {
         @apply stroke-success;
       }
@@ -39,20 +39,23 @@
   }
 
   &--error {
-    @apply border-error text-error;
+    @apply bg-error text-error;
+
     svg {
       @apply stroke-error;
     }
 
     &:hover {
-      @apply border-darkerror text-darkerror;
+      @apply text-darkerror;
+
       svg {
         @apply stroke-darkerror;
       }
     }
 
     &:active {
-      @apply border-error text-error bg-white;
+      @apply text-error;
+
       svg {
         @apply stroke-error;
       }
@@ -60,7 +63,8 @@
   }
 
   &:disabled {
-    @apply border-light bg-light text-white;
+    @apply bg-light text-white;
+
     svg {
       @apply stroke-white;
     }

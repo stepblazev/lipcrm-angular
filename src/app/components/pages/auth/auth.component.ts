@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
 import { AuthLoginComponent } from './auth-login/auth-login.component';
-import { AuthRegisterComponent } from './auth-register/auth-register.component';
+import { AuthRecoveryComponent } from './auth-recovery/auth-recovery.component';
 import { AuthService } from '../../../modules/auth/auth.service';
 import { NavigationEnd, Router } from '@angular/router';
 import { EAuthType } from '../../../modules/auth/models';
-import qs from 'qs';
 import { CommonModule } from '@angular/common';
+import qs from 'qs';
 
 @Component({
   standalone: true,
   selector: 'app-auth',
-  imports: [CommonModule, AuthLoginComponent, AuthRegisterComponent],
+  imports: [CommonModule, AuthLoginComponent, AuthRecoveryComponent],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.scss',
 })
@@ -26,11 +26,8 @@ export class AuthComponent {
       if (event instanceof NavigationEnd) {
         const parsedQuery = qs.parse(this.router.url.split('?')[1]);
 
-        if (
-          'type' in parsedQuery &&
-          parsedQuery['type'] == EAuthType.REGISTER
-        ) {
-          this.authService.AuthType = EAuthType.REGISTER;
+        if ('type' in parsedQuery && parsedQuery['type'] == EAuthType.RECOVERY) {
+          this.authService.AuthType = EAuthType.RECOVERY;
         } else {
           this.authService.AuthType = EAuthType.LOGIN;
         }

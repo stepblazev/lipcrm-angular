@@ -10,26 +10,21 @@
   }
 
   &__input {
-    @apply p-2 text-dark w-full border-light border-[1px] border-b-[3px] bg-white outline-none transition leading-none;
+    @apply p-4 text-dark w-full border-[#C8D2DD] border-[1px] bg-white rounded-md text-[1rem] outline-none transition-all leading-none;
 
-    &:not(:focus):hover {
-      @apply bg-light;
+    &:focus {
+      @apply border-primary;
     }
     
     &:disabled {
-        @apply bg-light;
+        @apply bg-light border-light;
     }
   }
 
-  &::after {
-    @apply w-0 h-[3px] absolute bottom-0 left-[50%] translate-x-[-50%] bg-primary transition-all duration-300;
-    content: "";
+  &:not(&--error) &__input:not(:focus):not(:disabled):hover  {
+    @apply border-border;
   }
-
-  &:focus-within::after {
-    @apply w-full;
-  }
-
+  
   &:not(&--error):focus-within &__caption {
     @apply text-primary;
 
@@ -39,15 +34,11 @@
   }
 
   &__error {
-    @apply text-error text-body-3 text-right absolute top-full mt-1 right-0;
+    @apply text-error text-body-3 text-right absolute bottom-1 right-2 select-none pointer-events-none;
   }
 
-  &--error &__caption {
-    @apply text-error;
-
-    svg {
-      @apply stroke-error;
-    }
+  &--error &__input {
+    @apply border-error;
   }
 
   &--error::after {

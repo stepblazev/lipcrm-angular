@@ -4,6 +4,8 @@ import { Observable, Subject } from 'rxjs';
 export interface IConfirmData {
   title: string;
   message: string;
+  confirm?: string;
+  cancel?: string;
 }
 
 @Injectable({

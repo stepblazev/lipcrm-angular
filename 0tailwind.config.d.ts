@@ -2,14 +2,18 @@ declare module 'tailwind.config.js' {
   const config: {
     theme: {
       colors: {
-        white: string;
-
+        header: string;
+        background: string;
+        
         primary: string;
         darkprimary: string;
-
+        
         success: string;
         darksuccess: string;
-
+        
+        warning: string;
+        darkwarning: string;
+        
         error: string;
         darkerror: string;
 
@@ -17,6 +21,7 @@ declare module 'tailwind.config.js' {
         dark: string;
         gray: string;
         light: string;
+        white: string;
       };
     };
   };

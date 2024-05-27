@@ -1,19 +1,15 @@
 .confirm {
-  @apply max-w-[600px] min-w-[400px];
+  @apply max-w-[406px] min-w-[406px] py-7 px-8;
 
   &__title {
-    @apply text-[1.5rem];
+    @apply text-body-1 font-medium;
   }
 
   &__message {
-    @apply mt-4 text-body-1;
+    @apply mt-2 text-body-3;
   }
 
   &__controls {
-    @apply mt-8 flex justify-end;
-    
-    button {
-        @apply w-auto;
-    }
+    @apply mt-4 flex justify-end;
   }
 }

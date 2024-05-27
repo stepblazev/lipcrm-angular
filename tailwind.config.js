@@ -7,63 +7,50 @@ export default {
     theme: {
         container: {
             center: true,
-            screens: {
-                tablet: '768px',
-                laptop: '1024px',
-                desktop: '1280px',
-            },
-            padding: {
-                DEFAULT: '1rem',
-            },
+            screens: { desktop: '1350px'},
+            padding: { DEFAULT: '1rem' },
         },
         fontSize: {
-            "header": ["38px", {
-                lineHeight: "33.6px",
-                fontWeight: "700"
-            }],
+            "header": ["36px", { fontWeight: "700" }],
 
-            "subheader": ["24px", "31.2px"],
+            "body-1": ["16px", { fontWeight: 400 }],
+            "body-2": ["14px", { fontWeight: 400 }],
+            "body-3": ["12px", { fontWeight: 400 }],
 
-            "body-1": ["16px", "22.5px"],
-            "body-2": ["14px", "20px"],
-            "body-3": ["12px", {
-                lineHeight: "16.8px", fontWeight: 400
-            }],
-
-            "button": ["17px", {
-                lineHeight: "20px",
-                fontWeight: "500"
-            }],
+            "button": ["16px", { fontWeight: 500 }],
         },
         fontFamily: {
             "primary": ['Montserrat'],
         },
         colors: {
-            white: "#FFFFFF",
-
-            primary: "#5599FF",
-            darkprimary: "#294FCC",
+            header: "#003162",
+            border: "#8DB2E3",
+            background: "#E7F1FF",
             
-            success: "#1BCD54",
-            darksuccess: "#128035",
+            primary: "#02529F",
+            darkprimary: "#003970",
             
-            warning: "#ffc800",
-            darkwarning: "#ad8800",
+            success: "#2BB080",
+            darksuccess: "#1a6e50",
             
-            error: "#D21545",
-            darkerror: "#850828",
+            warning: "#FF8A00",
+            darkwarning: "#b56200",
+            
+            error: "#F21D6A",
+            darkerror: "#ad134b",
 
             black: "#151821",
-            dark: "#222831",
-            gray: "#393E46",
+            dark: "#292929",
+            gray: "#7D8E9E",
             light: "#EEEEEE",
+            white: "#FFFFFF",
         },
         screens: {
             'phone': '480px',
             'mobile': '576px',
             'tablet': '768px',
             'laptop': '1024px',
-            'desktop': '1280px',
+            'desktop': '1350px',
         },
         extend: {},
     },

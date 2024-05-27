@@ -37,6 +37,9 @@ $shipment-crm-theme: mat.define-light-theme((
 // that you are using.
 @include mat.all-component-themes($shipment-crm-theme);
 
+// Стили для уведомлений
+@import 'ngx-toastr/toastr';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -49,13 +52,12 @@ $shipment-crm-theme: mat.define-light-theme((
 * {
     @apply text-dark;
     font-family: "Montserrat", sans-serif;
+    line-height: 1
 }
 
 body {
-    margin: 0;
+    @apply m-0 bg-[#BFDBFF];
     max-width: 100vw;
-    background-color: #FFFFFF;
     overflow-x: hidden;
     overflow-y: scroll;
-}
-html, body { height: 100%; }
+}   

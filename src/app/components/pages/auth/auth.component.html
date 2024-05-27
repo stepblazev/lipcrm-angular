@@ -1,22 +1,8 @@
-<div class="auth" [ngClass]="{
-    'auth--register': authService.AuthType == EAuthType.REGISTER
-  }"
->
+<div class="auth">
+    
   <div class="auth__form">
     <app-auth-login *ngIf="authService.AuthType == EAuthType.LOGIN" />
-    <app-auth-register *ngIf="authService.AuthType == EAuthType.REGISTER" />
+    <app-auth-recovery *ngIf="authService.AuthType == EAuthType.RECOVERY" />
   </div>
-  <div class="auth__screen">
-    <h1 class="auth__title">
-      <span>CRM</span>
-      <svg class="fill-white h-[68px] w-[68px] max-laptop:h-[46px] max-laptop:w-[46px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-        <use xlink:href="assets/icons/common.sprites.svg#crm"></use>
-      </svg>
-    </h1>
-    <p class="auth__subtitle">
-      {{ authService.AuthType == EAuthType.REGISTER
-          ? "Регистрация"
-          : "Авторизация" }}
-    </p>
-  </div>
+
 </div>
