@@ -1,0 +1,7 @@
+<label class="checkbox" [ngClass]="{'_checked': checked}" [for]="id" [title]="title">
+    <input type="checkbox" class="checkbox__input" [id]="id" [checked]="checked"
+        (change)="update($any($event.target)?.checked)">
+    <div class="checkbox__container">
+        <div class="checkbox__circle"></div>
+    </div>
+</label>

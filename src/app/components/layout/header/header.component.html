@@ -1,17 +1,38 @@
-<header class="py-3 bg-header w-[100vw]">
+<header class="header">
     <div class="container">
-        <div *ngIf="userService.currentUser" class="flex items-center justify-end gap-4">
-            <div class="flex items-center">
-                <div class="flex flex-col items-end">
-                    <span class="text-white text-body-2">{{ userService.currentUser.name }}</span>
-                    <span class="text-[#7BA3C9] text-body-3">{{ userService.currentUser.role.display_name }}</span>
-                </div>
-                <div class="ml-3 w-[48px] h-[48px] rounded-full overflow-hidden">
-                    <img class="w-full h-full object-cover object-center"
-                        src="{{ userService.currentUser.getAvatarUrl() }}" alt="avatar">
-                </div>
+        <div class="header__content">
+            <div class="header__logo">
+                <div class="mr-2 w-[40px] h-[40px] bg-white rounded-full"></div>
+                <span class="font-bold text-[24px] text-white">ЛОГО</span>
             </div>
-            <button type="button" class="btn btn--error" (click)="logout()">Выйти</button>
+
+            <nav *ngIf="userService.isAuthorized" class="header__nav">
+                <a *ngFor="let link of links" class="link" [ngClass]="{ '_active': isActiveRoute(link.href) }"
+                    [routerLink]="link.href">
+                    <fa-icon *ngIf="link.icon" class="link__icon" [icon]="link.icon" />
+                    <span class="link__name">{{ link.name }}</span>
+                </a>
+            </nav>
+
+            <div *ngIf="userService.currentUser" class="header__user">
+                <div class="flex items-center">
+                    <div class="flex flex-col items-end">
+                        <span class="text-white text-body-2">
+                            {{ userService.currentUser.short_name ?? userService.currentUser.name }}
+                        </span>
+                        <span class="mt-1 text-[#7BA3C9] text-body-3">
+                            {{ userService.currentUser.role.display_name }}
+                        </span>
+                    </div>
+                    <div class="ml-3 w-[48px] h-[48px] rounded-full overflow-hidden">
+                        <img class="w-full h-full object-cover object-center"
+                            src="{{ userService.currentUser.getAvatarUrl() }}" alt="avatar">
+                    </div>
+                </div>
+                <button type="button" class="ml-4 btn" (click)="logout()">
+                    <fa-icon [icon]="logoutIcon" />
+                </button>
+            </div>
         </div>
     </div>
 </header>

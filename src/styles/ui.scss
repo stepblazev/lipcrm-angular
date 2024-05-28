@@ -33,6 +33,22 @@ svg {
   @apply w-full h-full;
 }
 
-@import './controls/button.scss';
-@import './controls/button-alt.scss';
-@import './controls/input.scss';
+div,
+span,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a,
+li,
+ul,
+ol {
+  @apply text-dark;
+}
+
+@import "./controls/button.scss";
+@import "./controls/button-alt.scss";
+@import "./controls/input.scss";

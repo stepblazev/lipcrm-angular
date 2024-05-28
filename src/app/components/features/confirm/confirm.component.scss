@@ -11,5 +11,13 @@
 
   &__controls {
     @apply mt-4 flex justify-end;
+    
+    button {
+        @apply text-[14px];
+    }
+    
+    button:last-child {
+        @apply ml-4;
+    }
   }
 }

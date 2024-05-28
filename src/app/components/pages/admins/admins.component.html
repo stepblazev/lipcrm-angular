@@ -1,0 +1,50 @@
+<div class="mt-8">
+    <table *ngIf="admins.length">
+        <tr class="border">
+            <th class="border">Фото</th>
+            <th class="border">Активность</th>
+            <th class="border">ФИО</th>
+            <th class="border">Контакты</th>
+            <th class="border">Организация</th>
+            <th class="border">Город</th>
+            <th class="border">Нагрузка</th>
+            <th class="border">Кол-во</th>
+            <th class="border">Логин</th>
+            <th class="border">Доступ</th>
+        </tr>
+        <tr *ngFor="let admin of admins" class="border">
+            <td class="border">
+                <img width="70" height="70" src="{{ admin.getAvatarUrl() }}" alt="">
+            </td>
+            <td class="border">
+                <app-checkbox [id]="admin.id.toString()" [checked]="admin.active" />
+            </td>
+            <td class="border">
+                {{ admin.name }}
+            </td>
+            <td class="border">
+                <a *ngIf="admin.phone" href="tel:{{ admin.phone }}">{{ admin.phone }}</a><br>
+                <a *ngIf="admin.email" href="mailto:{{ admin.email }}">{{ admin.email }}</a>
+            </td>
+            <td class="border">
+                {{ admin.company.name }}
+            </td>
+            <td class="border">
+                нет данных
+            </td>
+            <td class="border">
+                Запросов: 500<br>
+                Заявок: 400
+            </td>
+            <td class="border">
+                {{ admin.employees_count }}
+            </td>
+            <td class="border">
+                {{ admin.email }}
+            </td>
+            <td class="border">
+                <span *ngFor="let permission of admin.company.permissions" class="block">{{ permission.display_name }}</span>
+            </td>
+        </tr>
+    </table>
+</div>

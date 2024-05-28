@@ -1,6 +1,5 @@
 import { BaseModel } from 'src/app/core/base-model';
 import { IRoleProps, RoleModel } from './role';
-import { BASE_URL } from 'src/constants';
 
 export interface IUserProps {
   id: number;
@@ -40,6 +39,6 @@ export class UserModel extends BaseModel {
   }
 
   public getAvatarUrl(): string {
-    return `http://libcrm.local/public/storage/${this.avatar}`;
+    return `http://lipcrm.local/public/storage/${this.avatar}`;
   }
 }

@@ -1,0 +1,42 @@
+.gloader {
+  @apply invisible opacity-0 fixed top-0 left-0 right-0 bottom-0 bg-primary bg-opacity-15 backdrop-blur-sm transition-all duration-[400ms] z-[500];
+
+  &--active {
+    @apply visible opacity-100;
+  }
+  
+  &__loader {
+    @apply absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%];
+  }
+}
+
+.loader {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 12px solid #0000;
+  position: relative;
+  animation: s4 1s infinite linear;
+  @apply border-r-primary border-opacity-35;
+}
+
+.loader:before,
+.loader:after {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: inherit;
+  animation: inherit;
+  animation-duration: 2s;
+}
+
+.loader:after {
+  animation-duration: 4s;
+}
+
+@keyframes s4 {
+  100% {
+    transform: rotate(1turn);
+  }
+}

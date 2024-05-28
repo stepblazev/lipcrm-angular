@@ -1,0 +1,53 @@
+.header {
+  @apply py-3 bg-header max-w-[100vw];
+
+  &__content {
+    @apply flex items-center;
+  }
+
+  &__logo {
+    @apply flex items-center;
+  }
+
+  &__nav {
+    @apply ml-[42px] flex items-center;
+
+    .link {
+      @apply text-white flex items-center opacity-50 transition;
+
+      &:hover {
+       @apply opacity-100; 
+      }
+      
+      &::after {
+        content: '';
+        @apply absolute rounded mt-[10px] top-full left-0 w-0 h-[2px] bg-white transition-all;
+    }  
+      
+      &._active {
+        @apply relative opacity-100;
+        
+        &::after {
+            content: '';
+            @apply w-full;
+        }  
+    }
+      
+      &__icon {
+        @apply mr-2 text-[20px] text-[inherit];
+      }
+
+      &__name {
+        @apply text-[inherit] text-body-1 font-medium;
+      }
+
+      &:not(:first-child) {
+        @apply ml-5;
+      }
+    }
+  }
+
+  &__user {
+    @apply flex-grow flex items-center justify-end;
+  }
+}

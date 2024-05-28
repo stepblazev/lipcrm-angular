@@ -45,14 +45,14 @@ $shipment-crm-theme: mat.define-light-theme((
 @tailwind utilities;
 
 @import "styles/mixins";
-@import "styles/fonts";
+@import "styles/fonts/roboto";
 @import "styles/browser";
 @import "styles/ui";
 
 * {
-    @apply text-dark;
-    font-family: "Montserrat", sans-serif;
-    line-height: 1
+    font-family: "Roboto", sans-serif;
+    line-height: 1;
+    letter-spacing: 0.7px;
 }
 
 body {

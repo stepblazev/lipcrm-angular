@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, first } from 'rxjs';
 
 export interface IConfirmData {
   title: string;
@@ -21,7 +21,7 @@ export class ConfirmService {
     this.data = payload;
     this.openConfirm();
     this.confirmSubject = new Subject<boolean>();
-    return this.confirmSubject.asObservable();
+    return this.confirmSubject.asObservable().pipe(first());
   }
 
   public respond(answer: boolean): void {

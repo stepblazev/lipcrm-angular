@@ -1,0 +1,17 @@
+/admins              super
+/admins/{id}         super
+/companies           super
+/mobile              super
+
+/trips               all
+/history             logist | operator | agent
+/reports             admin
+/statistics          admin
+/employees           admin
+
+/settings/workweek   admin
+/settings/jobs       admin
+/settings/channels   admin
+/settings/routing    admin
+/settings/history    admin
+/settings/upload     admin

@@ -4,7 +4,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { routes } from './app.routes';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { provideToastr } from 'ngx-toastr';
+import { ToastrService, provideToastr } from 'ngx-toastr';
 import { TOASTR_CONFIG } from './toastr.config';
 import { CSRFInterceptor } from './interceptors/csrf-interceptor.interceptor';
 import { initializeApp } from './app.init';
@@ -17,6 +17,6 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideToastr(TOASTR_CONFIG), 
     { provide: MAT_DATE_LOCALE, useValue: 'ru' },
-    { provide: APP_INITIALIZER, useFactory: initializeApp, deps: [CsrfRepository], multi: true },
+    { provide: APP_INITIALIZER, useFactory: initializeApp, deps: [CsrfRepository, ToastrService], multi: true },
   ],
 };

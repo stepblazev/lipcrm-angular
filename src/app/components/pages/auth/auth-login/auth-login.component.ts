@@ -10,6 +10,7 @@ import { AuthRepository } from 'src/app/modules/auth/repositories/auth.repositor
 import { ObservableInput, catchError } from 'rxjs';
 import { ILoginResponseDTO } from 'src/app/modules/auth/dto/login.dto';
 import { ToastrService } from 'ngx-toastr';
+import { GloaderService } from 'src/app/shared/services/gloader.service';
 
 @Component({
   standalone: true,
@@ -29,6 +30,7 @@ export class AuthLoginComponent implements OnInit {
     private readonly authService: AuthService,
     private readonly authRepository: AuthRepository,
     private readonly userService: UserService,
+    private readonly gloaderService: GloaderService,
     private readonly toastr: ToastrService
   ) {}
 
@@ -36,40 +38,57 @@ export class AuthLoginComponent implements OnInit {
     // создаем форму с полями и валидаторами
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
-      password: [
-        '',
-        [Validators.required, Validators.minLength(this.passwordMinLength)],
-      ],
+      password: ['', [Validators.required, Validators.minLength(this.passwordMinLength)]],
     });
   }
 
   public login(event: Event) {
     event.preventDefault();
+    
+    // включаем глобальный лоадер
+    this.gloaderService.isLoading = true;
+    
+    // отключаем возможность вносить изменения в форму
+    this.loginForm?.disable();
 
-    if (this.loginForm?.valid) {
-      // если форма валидна,выполняем вход под этими данными
-      this.authRepository
-        .login({
-          email: this.loginForm.get('email')?.value,
-          password: this.loginForm.get('password')?.value,
-        })
-        .pipe(
-          catchError<ILoginResponseDTO, ObservableInput<ILoginResponseDTO>>(
-            (selector) => {
-              const response = selector.error as ILoginResponseDTO;
-              this.toastr.error(response.error?.message, 'Ошибка входа');
-              return selector;
-            }
-          )
+    // получаем email и пароль из формы
+    const email = this.loginForm?.get('email')?.value;
+    const password = this.loginForm?.get('password')?.value;
+
+    // выполняем вход под этими данными
+    this.authRepository
+      .login({ email, password })
+      .pipe(
+        catchError<ILoginResponseDTO, ObservableInput<ILoginResponseDTO>>(
+          (selector) => {
+            // в случае ошибки выводим уведомление (сообщение приходит от сервера)
+            const response = selector.error as ILoginResponseDTO;
+            this.toastr.error(response.error?.message);
+
+            // включаем форму и очищаем поле с паролем
+            this.loginForm?.enable();
+            this.loginForm?.setValue({ email: email, password: '' });
+            
+            // выключаем глобальный лоадер
+            this.gloaderService.isLoading = false;
+            
+            return selector;
+          }
         )
-        .subscribe((response) => {
-            if (response.success) {
-                this.userService.authorize(response.data);
-                this.toastr.success(response.data.role.display_name, 'Вход выполнен');
-                this.router.navigate(['/']); // редирект на главную после успешной авторизации
-            }
-        });
-    }
+      )
+      .subscribe((response) => {
+        if (response.success) {
+          // сохраняем данные пользователя в браузере и выводим уведомление
+          this.userService.authorize(response.data);
+          this.toastr.success(`Выполнен вход как ${response.data.role.display_name}`);
+
+          // выключаем глобальный лоадер
+          this.gloaderService.isLoading = false;
+          
+          // редирект на главную после успешной авторизации
+          this.router.navigate(['/']);
+        }
+      });
   }
 
   public moveToRecovery() {

@@ -20,7 +20,7 @@ export default {
             "button": ["16px", { fontWeight: 500 }],
         },
         fontFamily: {
-            "primary": ['Montserrat'],
+            "primary": ['Roboto'],
         },
         colors: {
             header: "#003162",

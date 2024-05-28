@@ -6,7 +6,7 @@
             'control--error': loginForm.get('email')?.invalid && loginForm.get('email')?.touched
             }">
             <input class="control__input" type="email" formControlName="email" placeholder="Эл.почта"
-                autocomplete="off" />
+                autocomplete="off" tabindex="1" />
             <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
                 <span *ngIf="loginForm.get('email')?.hasError('required')" class="control__error">
                     Укажите адрес эл.почты
@@ -16,12 +16,12 @@
                 </span>
             </div>
         </div>
-
+        
         <div class="mt-4 control" [ngClass]="{
             'control--error': loginForm.get('password')?.invalid && loginForm.get('password')?.touched
             }">
             <input class="control__input" type="password" formControlName="password" placeholder="Пароль"
-                autocomplete="off" />
+                autocomplete="off" tabindex="2" />
             <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
                 <span *ngIf="loginForm.get('password')?.hasError('required')" class="control__error">
                     Укажите пароль
@@ -32,8 +32,8 @@
             </div>
         </div>
 
-        <button type="submit" class="m-auto mt-5 w-[202px] btn" [disabled]="loginForm.invalid">Войти</button>
+        <button type="submit" class="m-auto mt-5 w-[202px] btn" [disabled]="loginForm.invalid || loginForm.disabled" tabindex="3">Войти</button>
 
-        <button type="button" class="m-auto mt-2 btn-alt" (click)="moveToRecovery()">Забыли пароль?</button>
+        <button type="button" class="m-auto mt-4 btn-alt" (click)="moveToRecovery()" tabindex="4">Забыли пароль?</button>
     </form>
 </div>

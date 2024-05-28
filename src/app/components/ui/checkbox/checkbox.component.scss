@@ -1,0 +1,19 @@
+.checkbox {
+  @apply flex items-center select-none cursor-pointer;
+
+  &._checked .checkbox__circle {
+      @apply translate-x-[23px] bg-primary;
+    }
+
+  &__input {
+    @apply hidden;
+  }
+
+  &__container {
+    @apply w-[44px] h-[20px] relative rounded-full bg-white border-[#C8D2DD] border-[1px];
+  }
+
+  &__circle {
+    @apply h-[15px] w-[15px] bg-[#C8D2DD] rounded-[50%] absolute left-[2px] top-[50%] translate-y-[-50%] transition-all;
+  }
+}
