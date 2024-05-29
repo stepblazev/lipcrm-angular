@@ -1,0 +1,16 @@
+<form *ngIf="form" [formGroup]="form" class="new">
+    <span class="text-primary">Добавить админа</span>
+    
+    <input type="file" />
+    <input type="text" placeholder="ФИО" />
+    <input type="text" placeholder="Название организации" />
+    <input type="tel" placeholder="+7 (123) 456-78-90" />
+    <input type="email" placeholder="exampla@gmail.com" />
+    <input type="password" placeholder="Пароль" />
+    <input type="password" placeholder="Повторите пароль" />
+
+    <div class="mt-4 flex justify-end">
+        <button type="reset" class="btn-alt" (click)="reset()">Отмена</button>
+        <button type="submit" class="btn ml-2">Добавить</button>
+    </div>
+</form>

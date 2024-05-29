@@ -1,5 +1,17 @@
 <div class="mt-8">
-    <table *ngIf="admins.length">
+    <div class="text-[2rem] font-bold">Администраторы</div>
+    
+    <div class="mt-4 flex justify-between items-start">
+        <form class="flex items-start">
+            <div class="control">
+                <input type="search" class="control__input" placeholder="поиск" />
+            </div>
+            <button class="ml-2 btn-alt" type="reset">Сбросить</button>
+        </form>
+        <button type="button" class="btn" (click)="isNewOpened=true">Добавить администратора</button>
+    </div>
+    
+    <table *ngIf="admins.length" class="mt-6 w-full">
         <tr class="border">
             <th class="border">Фото</th>
             <th class="border">Активность</th>
@@ -11,6 +23,7 @@
             <th class="border">Кол-во</th>
             <th class="border">Логин</th>
             <th class="border">Доступ</th>
+            <th class="border"></th>
         </tr>
         <tr *ngFor="let admin of admins" class="border">
             <td class="border">
@@ -29,22 +42,30 @@
             <td class="border">
                 {{ admin.company.name }}
             </td>
-            <td class="border">
-                нет данных
+            <td class="border text-gray">
+                NULL
+            </td>
+            <td class="border text-gray">
+                NULL
             </td>
             <td class="border">
-                Запросов: 500<br>
-                Заявок: 400
-            </td>
-            <td class="border">
-                {{ admin.employees_count }}
+                {{ admin.company.employees_count }}
             </td>
             <td class="border">
                 {{ admin.email }}
             </td>
             <td class="border">
-                <span *ngFor="let permission of admin.company.permissions" class="block">{{ permission.display_name }}</span>
+                <span *ngFor="let permission of admin.company.permissions" class="block">{{ permission.display_name
+                    }}</span>
+            </td>
+            <td class="border flex flex-col items-stretch gap-1">
+                <button type="button" class="btn">Изменить</button>
+                <button type="button" class="btn btn--error">Удалить</button>
             </td>
         </tr>
     </table>
 </div>
+
+<app-popup [isOpened]="isNewOpened" (closeEvent)="isNewOpened=false">
+    <app-admins-new />
+</app-popup>

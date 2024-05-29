@@ -13,26 +13,26 @@
     @apply ml-[42px] flex items-center;
 
     .link {
-      @apply text-white flex items-center opacity-50 transition;
+      @apply relative text-white flex items-center opacity-50 transition;
 
       &:hover {
-       @apply opacity-100; 
+        @apply opacity-100;
       }
-      
+
       &::after {
-        content: '';
+        content: "";
         @apply absolute rounded mt-[10px] top-full left-0 w-0 h-[2px] bg-white transition-all;
-    }  
-      
+      }
+
       &._active {
-        @apply relative opacity-100;
-        
+        @apply opacity-100;
+
         &::after {
-            content: '';
-            @apply w-full;
-        }  
-    }
-      
+          content: "";
+          @apply w-full;
+        }
+      }
+
       &__icon {
         @apply mr-2 text-[20px] text-[inherit];
       }

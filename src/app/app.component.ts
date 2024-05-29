@@ -8,7 +8,6 @@ import { GloaderComponent } from './components/features/gloader/gloader.componen
 import { UserRepository } from './modules/user/repositories/user.repository';
 import { ObservableInput, catchError, first } from 'rxjs';
 import { IMeResponseDTO } from './modules/user/dto/me.dto';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
   standalone: true,
@@ -27,7 +26,6 @@ export class AppComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private toastr: ToastrService,
     private userService: UserService,
     private userRepository: UserRepository
   ) {}
@@ -44,14 +42,9 @@ export class AppComponent implements OnInit {
         first(),
         catchError<IMeResponseDTO, ObservableInput<IMeResponseDTO>>(
           (selector) => {
-            // в случае ошибки выводим уведомление (сообщение приходит от сервера)
-            const response = selector.error as IMeResponseDTO;
-            this.toastr.error(response.error?.message);
-
-            // выходим из учетной записи в браузере
+            // в случае ошибки выходим из учетной записи в браузере
             this.userService.logout();
             this.router.navigate(['auth']);
-
             return selector;
           }
         )

@@ -61,17 +61,9 @@ export class AuthLoginComponent implements OnInit {
       .pipe(
         catchError<ILoginResponseDTO, ObservableInput<ILoginResponseDTO>>(
           (selector) => {
-            // в случае ошибки выводим уведомление (сообщение приходит от сервера)
-            const response = selector.error as ILoginResponseDTO;
-            this.toastr.error(response.error?.message);
-
             // включаем форму и очищаем поле с паролем
             this.loginForm?.enable();
             this.loginForm?.setValue({ email: email, password: '' });
-            
-            // выключаем глобальный лоадер
-            this.gloaderService.isLoading = false;
-            
             return selector;
           }
         )
@@ -80,7 +72,7 @@ export class AuthLoginComponent implements OnInit {
         if (response.success) {
           // сохраняем данные пользователя в браузере и выводим уведомление
           this.userService.authorize(response.data);
-          this.toastr.success(`Выполнен вход как ${response.data.role.display_name}`);
+          this.toastr.success(`Выполнен вход как ${response.data.role.display_name.toLowerCase()}`);
 
           // выключаем глобальный лоадер
           this.gloaderService.isLoading = false;

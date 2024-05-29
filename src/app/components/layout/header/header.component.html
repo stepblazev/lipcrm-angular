@@ -2,8 +2,10 @@
     <div class="container">
         <div class="header__content">
             <div class="header__logo">
-                <div class="mr-2 w-[40px] h-[40px] bg-white rounded-full"></div>
-                <span class="font-bold text-[24px] text-white">ЛОГО</span>
+                <div *ngIf="userService.currentUser?.company" class="mr-2 w-[48px] h-[48px] rounded-full">
+                    <img src="{{ userService.currentUser?.company?.getLogoUrl() }}" class="object-contain object-center w-full h-full" alt="logo">
+                </div>
+                <span class="font-bold text-[24px] text-white">{{ userService.currentUser?.company?.name ?? 'CRM' }}</span>
             </div>
 
             <nav *ngIf="userService.isAuthorized" class="header__nav">

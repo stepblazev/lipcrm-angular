@@ -1,5 +1,6 @@
 import { BaseModel } from 'src/app/core/base-model';
 import { IRoleProps, RoleModel } from './role';
+import { CompanyModel, ICompanyProps } from './company';
 
 export interface IUserProps {
   id: number;
@@ -10,6 +11,7 @@ export interface IUserProps {
   avatar: string | null;
   created_at: string;
   role: IRoleProps;
+  company: ICompanyProps | null;
 }
 
 export class UserModel extends BaseModel {
@@ -21,6 +23,7 @@ export class UserModel extends BaseModel {
   public created_at: Date;
 
   public role: RoleModel;
+  public company: CompanyModel | null = null;
 
   constructor(props: IUserProps) {
     super(props.id);
@@ -33,6 +36,9 @@ export class UserModel extends BaseModel {
 
     if (props.birth_date) {
       this.birth_date = new Date(props.birth_date);
+    }
+    if (props.company) {
+      this.company = new CompanyModel(props.company);
     }
 
     this.role = new RoleModel(props.role);

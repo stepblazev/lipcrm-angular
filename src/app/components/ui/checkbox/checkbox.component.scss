@@ -1,5 +1,5 @@
 .checkbox {
-  @apply flex items-center select-none cursor-pointer;
+  @apply inline-flex items-center select-none cursor-pointer;
 
   &._checked .checkbox__circle {
       @apply translate-x-[23px] bg-primary;
