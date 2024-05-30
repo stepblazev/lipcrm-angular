@@ -45,6 +45,11 @@ export class AuthLoginComponent implements OnInit {
   public login(event: Event) {
     event.preventDefault();
     
+    if (this.loginForm?.invalid) {
+        this.loginForm.markAllAsTouched();
+        return;
+    }
+    
     // включаем глобальный лоадер
     this.gloaderService.isLoading = true;
     

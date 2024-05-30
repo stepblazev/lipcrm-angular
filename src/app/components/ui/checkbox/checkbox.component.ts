@@ -16,7 +16,6 @@ export class CheckboxComponent {
     @Output() valueChanged = new EventEmitter<boolean>();
   
     public update(state: boolean) {
-      this.checked = state;
       this.valueChanged.emit(state);
     }
 }

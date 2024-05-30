@@ -1,16 +1,107 @@
-<form *ngIf="form" [formGroup]="form" class="new">
-    <span class="text-primary">Добавить админа</span>
+<form *ngIf="form" [formGroup]="form" (ngSubmit)="create($event)" class="form">
+    <span class="form__title">Добавить админа</span>
     
-    <input type="file" />
-    <input type="text" placeholder="ФИО" />
-    <input type="text" placeholder="Название организации" />
-    <input type="tel" placeholder="+7 (123) 456-78-90" />
-    <input type="email" placeholder="exampla@gmail.com" />
-    <input type="password" placeholder="Пароль" />
-    <input type="password" placeholder="Повторите пароль" />
-
-    <div class="mt-4 flex justify-end">
-        <button type="reset" class="btn-alt" (click)="reset()">Отмена</button>
-        <button type="submit" class="btn ml-2">Добавить</button>
+    <app-image-upload [file]="form.get('image')?.value" (imageChanged)="onImageChange($event)" placeholder="Загрузите или перетащите файл" class="mt-6" />
+    
+    <div class="mt-4 control" [ngClass]="{
+        'control--error': form.get('fio')?.invalid && form.get('fio')?.touched
+        }">
+        <label class="control__caption" for="fio">ФИО</label>
+        <input class="control__input" type="text" id="fio" formControlName="fio" placeholder="Фамилия Имя Отчество" autocomplete="off" />
+        <div *ngIf="form.get('fio')?.invalid && form.get('fio')?.touched">
+            <span *ngIf="form.get('fio')?.hasError('minlength')" class="control__error">
+                Минимум 3 символа
+            </span>
+            <span *ngIf="form.get('fio')?.hasError('maxlength')" class="control__error">
+                Максимум 255 символов
+            </span>
+        </div>
+    </div>
+    
+    <div class="mt-4 control" [ngClass]="{
+        'control--error': form.get('company_name')?.invalid && form.get('company_name')?.touched
+        }">
+        <label class="control__caption" for="company_name">Организация</label>
+        <input class="control__input" type="text" id="company_name" formControlName="company_name" placeholder="Название организации" autocomplete="off" />
+        <div *ngIf="form.get('company_name')?.invalid && form.get('company_name')?.touched">
+            <span *ngIf="form.get('company_name')?.hasError('minlength')" class="control__error">
+                Минимум 3 символа
+            </span>
+            <span *ngIf="form.get('company_name')?.hasError('maxlength')" class="control__error">
+                Максимум 255 символов
+            </span>
+        </div>
+    </div>
+    
+    <div class="mt-4 control" [ngClass]="{
+        'control--error': form.get('phone')?.invalid && form.get('phone')?.touched
+        }">
+        <label class="control__caption" for="phone">Телефон</label>
+        <input class="control__input" type="tel" id="phone" formControlName="phone" placeholder="+7 (123) 456-78-90" autocomplete="off" />
+        <div *ngIf="form.get('phone')?.invalid && form.get('phone')?.touched">
+            <span *ngIf="form.get('phone')?.hasError('minlength')" class="control__error">
+                Минимум 7 символов
+            </span>
+            <span *ngIf="form.get('phone')?.hasError('maxlength')" class="control__error">
+                Максимум 50 символов
+            </span>
+        </div>
+    </div>
+    
+    <div class="mt-4 control" [ngClass]="{
+        'control--error': form.get('email')?.invalid && form.get('email')?.touched
+        }">
+        <label class="control__caption" for="email">Email</label>
+        <input class="control__input" type="text" id="email" formControlName="email" placeholder="example@gmail.com" autocomplete="off" />
+        <div *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
+            <span *ngIf="form.get('email')?.hasError('email')" class="control__error">
+                Неверный формат эл.почты
+            </span>
+            <span *ngIf="form.get('email')?.hasError('maxlength')" class="control__error">
+                Максимум 255 символов
+            </span>
+        </div>
+    </div>
+    
+    <div class="mt-3 flex">
+        <div class="control" [ngClass]="{
+            'control--error': (form.get('password')?.invalid &&  form.get('password')?.touched) ||  
+                    (form.hasError('passwordsMismatch') && form.get('password_repeat')?.touched)
+            }">
+            <label class="control__caption" for="password">Пароль</label>
+            <input class="control__input" type="password" id="password" formControlName="password" placeholder="********" autocomplete="off" />
+            <div *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
+                <span *ngIf="form.get('password')?.hasError('minlength')" class="control__error">
+                    Минимум {{ passwordMinLength }} символов
+                </span>
+                <span *ngIf="form.get('password')?.hasError('maxlength')" class="control__error">
+                    Максимум 255 символов
+                </span>
+            </div>
+        </div>
+        
+        <div class="ml-2 control" [ngClass]="{
+            'control--error': (form.get('password_repeat')?.invalid && form.get('password_repeat')?.touched) || 
+                    (form.hasError('passwordsMismatch') && form.get('password_repeat')?.touched)
+            }">
+            <label class="control__caption" for="password_repeat">Повторите пароль</label>
+            <input class="control__input" type="password" id="password_repeat" formControlName="password_repeat" placeholder="********" autocomplete="off" />
+            <div *ngIf="form.get('password_repeat')?.invalid && form.get('password_repeat')?.touched">
+                <span *ngIf="form.get('password_repeat')?.hasError('minlength')" class="control__error">
+                    Минимум {{ passwordMinLength }} символов
+                </span>
+                <span *ngIf="form.get('password_repeat')?.hasError('maxlength')" class="control__error">
+                    Максимум 255 символов
+                </span>
+            </div>
+            <span *ngIf="form?.hasError('passwordsMismatch') && form.get('password')?.valid && form.get('password_repeat')?.valid" class="control__error">
+                Пароли не совпадают
+            </span>
+        </div>
+    </div>
+    
+    <div class="mt-6 flex justify-end">
+        <button type="button" class="btn-alt" (click)="reset()">Отмена</button>
+        <button type="submit" class="btn ml-2" [disabled]="form.disabled">Добавить</button>
     </div>
 </form>

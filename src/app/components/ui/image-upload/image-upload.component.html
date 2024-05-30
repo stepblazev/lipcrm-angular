@@ -1,0 +1,18 @@
+<div class="uploader" [ngClass]="{ '_hover': isHovering, '_uploaded': file }" (click)="onClick()"
+    (dragover)="onDragOver($event)" (dragleave)="onDragLeave()" (drop)="onDrop($event)">
+    <input type="file" (change)="onFileChange($event)" accept="image/*" hidden #fileInput>
+    <div class="uploader__image">
+        <fa-icon class="uploader__icon" [icon]="mainIcon" />
+        <img *ngIf="file && imageSrc" [src]="imageSrc" draggable="false">
+    </div>
+    <span *ngIf="placeholder" class="uploader__caption">{{ placeholder }}</span>
+    
+    <div class="uploader__controls">
+        <div class="uploader__name">{{ file?.name }}</div>
+        <div class="uploader__size">{{ file?.size }} bytes</div>
+        <button type="button" class="mt-1 !p-1 btn-alt btn-alt--error" (click)="deleteHandler($event)">
+            <fa-icon [icon]="deleteIcon" />
+            Удалить
+        </button>
+    </div>
+</div>

@@ -1,66 +1,60 @@
 <div class="mt-8">
-    <div class="text-[2rem] font-bold">Администраторы</div>
-    
+
     <div class="mt-4 flex justify-between items-start">
-        <form class="flex items-start">
-            <div class="control">
-                <input type="search" class="control__input" placeholder="поиск" />
-            </div>
-            <button class="ml-2 btn-alt" type="reset">Сбросить</button>
-        </form>
+        <div class="text-[2rem] font-bold">Администраторы</div>
         <button type="button" class="btn" (click)="isNewOpened=true">Добавить администратора</button>
     </div>
-    
-    <table *ngIf="admins.length" class="mt-6 w-full">
-        <tr class="border">
-            <th class="border">Фото</th>
-            <th class="border">Активность</th>
-            <th class="border">ФИО</th>
-            <th class="border">Контакты</th>
-            <th class="border">Организация</th>
-            <th class="border">Город</th>
-            <th class="border">Нагрузка</th>
-            <th class="border">Кол-во</th>
-            <th class="border">Логин</th>
-            <th class="border">Доступ</th>
-            <th class="border"></th>
+
+    <table *ngIf="admins.length">
+        <tr>
+            <th>Фото</th>
+            <th>Активность</th>
+            <th>ФИО</th>
+            <th>Контакты</th>
+            <th>Организация</th>
+            <th>Город</th>
+            <th>Нагрузка</th>
+            <th>Сотрудников</th>
+            <th>Доступ</th>
+            <th></th>
         </tr>
-        <tr *ngFor="let admin of admins" class="border">
-            <td class="border">
+        <tr *ngFor="let admin of admins">
+            <td>
                 <img width="70" height="70" src="{{ admin.getAvatarUrl() }}" alt="">
             </td>
-            <td class="border">
-                <app-checkbox [id]="admin.id.toString()" [checked]="admin.active" />
+            <td>
+                <app-checkbox [id]="admin.id.toString()" [checked]="admin.active"
+                    (valueChanged)="adminService.setActive(admin, $event)" />
             </td>
-            <td class="border">
+            <td>
                 {{ admin.name }}
             </td>
-            <td class="border">
+            <td>
                 <a *ngIf="admin.phone" href="tel:{{ admin.phone }}">{{ admin.phone }}</a><br>
                 <a *ngIf="admin.email" href="mailto:{{ admin.email }}">{{ admin.email }}</a>
             </td>
-            <td class="border">
+            <td>
                 {{ admin.company.name }}
             </td>
-            <td class="border text-gray">
+            <td class=" text-gray">
                 NULL
             </td>
-            <td class="border text-gray">
+            <td class=" text-gray">
                 NULL
             </td>
-            <td class="border">
+            <td>
                 {{ admin.company.employees_count }}
             </td>
-            <td class="border">
-                {{ admin.email }}
+            <td>
+                <span *ngIf="!admin.company.permissions.length">Нет доступа</span>
+                <span *ngFor="let permission of admin.company.permissions" class="block -b-[1px]">
+                    {{ permission.display_name }}
+                </span>
             </td>
-            <td class="border">
-                <span *ngFor="let permission of admin.company.permissions" class="block">{{ permission.display_name
-                    }}</span>
-            </td>
-            <td class="border flex flex-col items-stretch gap-1">
-                <button type="button" class="btn">Изменить</button>
-                <button type="button" class="btn btn--error">Удалить</button>
+            <td class="flex flex-col items-stretch gap-1">
+                <button type="button" class="btn-alt btn-alt--error">
+                    <fa-icon [icon]="deleteIcon" />
+                </button>
             </td>
         </tr>
     </table>

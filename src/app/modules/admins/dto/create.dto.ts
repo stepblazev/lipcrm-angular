@@ -2,6 +2,7 @@ import { IBaseHttpResponse } from "src/app/core/http-response";
 import { IAdminProps } from "../models/admin";
 
 export interface ICreateAdminPayloadDTO {
+    image: File | null;
     fio: string;
     company_name: string;
     phone: string;

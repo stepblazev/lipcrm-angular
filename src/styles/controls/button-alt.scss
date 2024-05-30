@@ -15,7 +15,7 @@
   }
 
   &--success {
-    @apply bg-success text-success;
+    @apply text-success;
 
     svg {
       @apply stroke-success;
@@ -39,7 +39,7 @@
   }
 
   &--error {
-    @apply bg-error text-error;
+    @apply text-error;
 
     svg {
       @apply stroke-error;
@@ -63,7 +63,7 @@
   }
 
   &:disabled {
-    @apply bg-light text-white;
+    @apply bg-light text-white cursor-not-allowed;
 
     svg {
       @apply stroke-white;

@@ -17,7 +17,7 @@ export default {
             "body-2": ["14px", { fontWeight: 400 }],
             "body-3": ["12px", { fontWeight: 400 }],
 
-            "button": ["16px", { fontWeight: 500 }],
+            "button": ["14px", { fontWeight: 500 }],
         },
         fontFamily: {
             "primary": ['Roboto'],

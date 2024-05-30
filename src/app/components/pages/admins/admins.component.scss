@@ -1,0 +1,15 @@
+table {
+    @apply mt-6 rounded-lg overflow-hidden w-full;
+}
+
+tr {
+    @apply border-b-[1px];
+    
+    &:first-child {
+        @apply bg-border whitespace-nowrap;
+        
+        th {
+            @apply p-2;
+        }
+    }
+}

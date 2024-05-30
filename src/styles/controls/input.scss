@@ -2,7 +2,7 @@
   @apply relative;
 
   &__caption {
-    @apply mb-1 flex items-center gap-1 text-dark text-body-2 transition cursor-pointer;
+    @apply mb-1 flex items-center gap-1 text-gray text-body-3 font-normal transition cursor-pointer;
 
     svg {
       @apply stroke-dark w-4 h-4 transition;
@@ -10,7 +10,7 @@
   }
 
   &__input {
-    @apply p-4 text-dark w-full border-[#C8D2DD] border-[1px] bg-white rounded-md text-[1rem] outline-none transition-all leading-none;
+    @apply p-3 text-dark w-full border-[#C8D2DD] border-[1px] bg-white rounded-md text-body-2 outline-none transition-all leading-none;
 
     &:focus {
       @apply border-primary;
@@ -34,7 +34,11 @@
   }
 
   &__error {
-    @apply text-error text-body-3 text-right absolute bottom-1 right-2 select-none pointer-events-none;
+    @apply text-error text-[10px] text-right absolute bottom-1 right-2 select-none pointer-events-none;
+  }
+
+  &--error &__caption {
+    @apply text-error;
   }
 
   &--error &__input {

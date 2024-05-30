@@ -1,7 +1,7 @@
-.new {
-    @apply p-5 w-[409px] flex flex-col items-stretch bg-background;
+.form {
+    @apply p-8 w-[409px] flex flex-col items-stretch bg-background;
     
-    input,select {
-        @apply mt-4 border-[1px] p-2;
+    &__title {
+        @apply text-primary text-body-1 font-medium;
     }
 }

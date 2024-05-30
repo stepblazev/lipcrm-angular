@@ -1,0 +1,63 @@
+.uploader {
+  @apply flex items-center cursor-pointer;
+
+  &._uploaded {
+    @apply cursor-[unset];
+  }
+  
+  &._hover &__caption {
+    @apply text-primary;
+  }
+
+  &._hover &__icon {
+    @apply text-primary;
+  }
+
+  &._hover &__image {
+    @apply border-primary scale-110;
+  }
+
+  &._uploaded &__caption {
+    @apply hidden;
+  }
+
+  &._uploaded &__icon {
+    @apply hidden;
+  }
+
+  &._uploaded &__image {
+    @apply border-none;
+  }
+
+  &._uploaded &__controls {
+    @apply block;
+  }
+
+  &__caption {
+    @apply m-3 text-gray text-body-3 transition ease-in;
+  }
+
+  &__icon {
+    @apply text-gray text-[24px] transition ease-in;
+  }
+
+  &__image {
+    @apply w-[70px] h-[70px] shrink-0 flex items-center justify-center relative border-[2px] border-gray border-dashed rounded-xl transition ease-in overflow-hidden;
+
+    img {
+      @apply absolute top-0 left-0 w-full h-full object-cover object-center;
+    }
+  }
+
+  &__controls {
+    @apply ml-2 self-end hidden;
+  }
+
+  &__name, &__size {
+    @apply max-w-[200px] text-body-3 text-primary overflow-hidden overflow-ellipsis whitespace-nowrap;
+  }
+
+  &__size {
+    @apply mt-1 text-[10px] text-gray;
+  }
+}
