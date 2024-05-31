@@ -52,7 +52,7 @@
                 </span>
             </td>
             <td class="flex flex-col items-stretch gap-1">
-                <button type="button" class="btn-alt btn-alt--error">
+                <button type="button" (click)="deleteAdmin(admin)" class="btn-alt btn-alt--error">
                     <fa-icon [icon]="deleteIcon" />
                 </button>
             </td>
@@ -60,6 +60,6 @@
     </table>
 </div>
 
-<app-popup [isOpened]="isNewOpened" (closeEvent)="isNewOpened=false">
+<app-popup [isOpened]="isNewOpened" (closeEvent)="closePopup()">
     <app-admins-new />
 </app-popup>

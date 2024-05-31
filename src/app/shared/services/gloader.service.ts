@@ -21,4 +21,12 @@ export class GloaderService {
   set isLoading(state: boolean) {
     this._isLoading = state;
   }
+  
+  public enable(): void {
+    this.isLoading = true;
+  }
+  
+  public disable(): void {
+    this.isLoading = false;
+  }
 }

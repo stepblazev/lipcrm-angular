@@ -6,6 +6,7 @@ import { IAdminDetailResponseDTO } from '../dto/admin.dto';
 import { ICreateAdminPayloadDTO, ICreateAdminResponseDTO } from '../dto/create.dto';
 import { objectToFormData } from 'src/app/shared/utils/object-to-form';
 import { IUpdateAdminPayloadDTO } from '../dto/update.dto';
+import { IDeleteAdminResponseDTO } from '../dto/delete.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -44,6 +45,13 @@ export class AdminRepository {
     return this.http.put<ICreateAdminResponseDTO>(
       `${BASE_URL}${API_URL}/superadmin/admin/${id}`,
       data,
+      { withCredentials: true }
+    );
+  }
+
+  public delete(id: number | string) {
+    return this.http.delete<IDeleteAdminResponseDTO>(
+      `${BASE_URL}${API_URL}/superadmin/admin/${id}`,
       { withCredentials: true }
     );
   }

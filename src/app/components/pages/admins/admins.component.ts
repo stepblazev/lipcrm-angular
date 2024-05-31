@@ -9,6 +9,7 @@ import { PopupComponent } from '../../ui/popup/popup.component';
 import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AdminService } from 'src/app/modules/admins/admin.service';
+import { ConfirmService } from 'src/app/shared/services/confirm.service';
 
 @Component({
   selector: 'app-admins',
@@ -29,21 +30,49 @@ export class AdminsComponent implements OnInit {
 
   constructor(
     public readonly adminService: AdminService,
+    private readonly confirm: ConfirmService,
     private readonly gloader: GloaderService,
     private readonly adminRepository: AdminRepository
   ) {}
 
   public ngOnInit(): void {
-    this.gloader.isLoading = true;
-
+    this.gloader.enable();
     this.adminRepository.admins().subscribe((response) => {
-      this.gloader.isLoading = false;
+      this.gloader.disable();
       if (response.success) {
         this.admins = response.data.map(
           (adminProps) => new AdminModel(adminProps)
         );
       }
     });
+  }
+
+  public closePopup(): void {
+    this.isNewOpened = false;
+
+    this.adminRepository.admins().subscribe((response) => {
+      if (response.success) {
+        this.admins = response.data.map(
+          (adminProps) => new AdminModel(adminProps)
+        );
+      }
+    });
+  }
+
+  public deleteAdmin(admin: AdminModel): void {
+    this.confirm
+      .confirm({
+        title: 'Удалить?',
+        message: 'Вы действительно хотите удалить админа без возможности восстановления?<br><br> Вместе с админом будет  <b>удалена организация со всеми ее данными</b>!',
+        confirm: 'Да',
+        cancel: 'Нет',
+        delay: 3000
+      })
+      .subscribe((answer) => {
+        if (answer) {
+          this.adminService.delete(admin);
+        }
+      });
   }
 
   public deleteIcon = faTrashCan;

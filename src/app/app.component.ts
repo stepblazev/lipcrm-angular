@@ -43,8 +43,8 @@ export class AppComponent implements OnInit {
         catchError<IMeResponseDTO, ObservableInput<IMeResponseDTO>>(
           (selector) => {
             // в случае ошибки выходим из учетной записи в браузере
-            this.userService.logout();
-            this.router.navigate(['auth']);
+            // this.userService.logout();
+            // this.router.navigate(['auth']);
             return selector;
           }
         )
@@ -55,8 +55,8 @@ export class AppComponent implements OnInit {
           this.userService.authorize(response.data);
         } else {
           // если нет, выходим из учетной записи в браузере
-          this.userService.logout();
-          this.router.navigate(['auth']);
+        //   this.userService.logout();
+        //   this.router.navigate(['auth']);
         }
       });
   }

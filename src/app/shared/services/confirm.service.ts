@@ -6,8 +6,10 @@ export interface IConfirmData {
   message: string;
   confirm?: string;
   cancel?: string;
+  delay?: number;
 }
 
+// FIXME рефакторинг!
 @Injectable({
   providedIn: 'root',
 })
@@ -16,8 +18,15 @@ export class ConfirmService {
 
   public data: IConfirmData = { title: '', message: '' };
   public isOpened: boolean = false;
+  public timeout: number | null = null;
 
   public confirm(payload: IConfirmData): Observable<boolean> {
+    if (payload.delay && payload.delay > 0) {
+        this.timeout = window.setTimeout(() => {
+            this.timeout = null;
+        }, payload.delay);
+    }
+
     this.data = payload;
     this.openConfirm();
     this.confirmSubject = new Subject<boolean>();
@@ -36,5 +45,10 @@ export class ConfirmService {
 
   public closeConfirm() {
     this.isOpened = false;
+    
+    if (this.timeout) {
+        clearTimeout(this.timeout);
+        this.timeout = null;
+    }
   }
 }

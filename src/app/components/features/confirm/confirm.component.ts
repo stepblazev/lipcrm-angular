@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ConfirmService } from 'src/app/shared/services/confirm.service';
 import { PopupComponent } from '../../ui/popup/popup.component';
 
@@ -10,6 +10,9 @@ import { PopupComponent } from '../../ui/popup/popup.component';
   imports: [PopupComponent],
 })
 export class ConfirmComponent {
+  @ViewChild('confirmButton') confirmButton: ElementRef<HTMLButtonElement>;
+  @ViewChild('cancelButton') cancelButton: ElementRef<HTMLButtonElement>;
+
   constructor(public confirmService: ConfirmService) {}
 
   public confirm(answer: boolean): void {
