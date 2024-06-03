@@ -1,0 +1,23 @@
+.pagination {
+    @apply flex;
+    
+    &__button {
+        @apply text-[#74879A] text-[16px] font-medium p-2 rounded transition-all;
+        
+        &.current {
+            @apply text-primary cursor-default; 
+        }
+        
+        &:not(.current):not(:disabled):hover {
+            @apply bg-border;
+        }
+        
+        &:not(:last-child) {
+            @apply mr-2;
+        }
+        
+        &:disabled {
+            @apply m-0 p-0 w-0 invisible;
+        }
+    }
+}

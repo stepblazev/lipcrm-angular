@@ -1,28 +1,49 @@
-<div class="mt-8">
-
-    <div class="mt-4 flex justify-between items-start">
-        <div class="text-[2rem] font-bold">Администраторы</div>
-        <button type="button" class="btn" (click)="isNewOpened=true">Добавить администратора</button>
+<div class="mt-8 flex justify-between items-end">
+    <div class="title">
+        <fa-icon [icon]="adminIcon" class="mr-2 text-[18px]" />
+        Администраторы
     </div>
 
-    <table *ngIf="admins.length">
+    <div class="mb-1 flex items-center">
+        <button *ngIf="adminService.filter.search" class="btn-alt btn-alt--error leading-[120%]"
+            (click)="resetFilter()">
+            <fa-icon [icon]="resetIcon" />
+            Сбросить
+        </button>
+        <div class="ml-1 control">
+            <input type="text" class="control__input !w-[200px]" [(ngModel)]="adminService.filter.search"
+                (ngModelChange)="adminService.updateFilter()" placeholder="поиск" />
+        </div>
+        <button type="button" class="btn ml-1 leading-[120%]" (click)="adminService.openNew()">
+            <fa-icon [icon]="createIcon" />
+            Добавить администратора
+        </button>
+    </div>
+</div>
+
+<div class="bg-white border border-border rounded-md rounded-tl-none overflow-hidden transition opacity-0" [ngClass]="{
+    'opacity-100': adminService.admins.length
+}">
+    <table *ngIf="adminService.admins.length" class="table">
         <tr>
             <th>Фото</th>
-            <th>Активность</th>
-            <th>ФИО</th>
+            <th class="pr-4">Активность</th>
+            <th class="cursor-pointer hover:bg-background">ФИО</th>
             <th>Контакты</th>
-            <th>Организация</th>
+            <th class="cursor-pointer hover:bg-background">Организация</th>
             <th>Город</th>
             <th>Нагрузка</th>
-            <th>Сотрудников</th>
+            <th>Кол-во</th>
             <th>Доступ</th>
             <th></th>
         </tr>
-        <tr *ngFor="let admin of admins">
+        <tr *ngFor="let admin of adminService.admins">
             <td>
-                <img width="70" height="70" src="{{ admin.getAvatarUrl() }}" alt="">
+                <div class="rounded-full overflow-hidden w-[30px] h-[30px]">
+                    <img class="object-cover object-center w-full h-full" src="{{ admin.getAvatarUrl() }}" alt="avatar">
+                </div>
             </td>
-            <td>
+            <td class="flex items-center justify-center pr-4">
                 <app-checkbox [id]="admin.id.toString()" [checked]="admin.active"
                     (valueChanged)="adminService.setActive(admin, $event)" />
             </td>
@@ -30,29 +51,31 @@
                 {{ admin.name }}
             </td>
             <td>
-                <a *ngIf="admin.phone" href="tel:{{ admin.phone }}">{{ admin.phone }}</a><br>
-                <a *ngIf="admin.email" href="mailto:{{ admin.email }}">{{ admin.email }}</a>
+                <a *ngIf="admin.phone" href="tel:{{ admin.phone }}" class="text-primary hover:underline">{{ admin.phone }}</a>
+                <br>
+                <a *ngIf="admin.email" href="mailto:{{ admin.email }}" class="text-primary hover:underline">{{ admin.email }}</a>
             </td>
             <td>
                 {{ admin.company.name }}
             </td>
-            <td class=" text-gray">
-                NULL
+            <td class="text-gray">
+                Россия, Московская область, Москва
             </td>
-            <td class=" text-gray">
-                NULL
+            <td>
+                Запросов: 500<br>
+                Заявок: 400
             </td>
             <td>
                 {{ admin.company.employees_count }}
             </td>
             <td>
-                <span *ngIf="!admin.company.permissions.length">Нет доступа</span>
-                <span *ngFor="let permission of admin.company.permissions" class="block -b-[1px]">
+                <span *ngIf="!admin.company.permissions.length" class="text-gray">Нет доступа</span>
+                <span *ngFor="let permission of admin.company.permissions" class="block -b-[1px] text-gray">
                     {{ permission.display_name }}
                 </span>
             </td>
             <td class="flex flex-col items-stretch gap-1">
-                <button type="button" (click)="deleteAdmin(admin)" class="btn-alt btn-alt--error">
+                <button type="button" class="w-[80px] h-full text-[18px] text-error flex items-center justify-center transition hover:text-darkerror" (click)="deleteAdmin(admin)">
                     <fa-icon [icon]="deleteIcon" />
                 </button>
             </td>
@@ -60,6 +83,12 @@
     </table>
 </div>
 
-<app-popup [isOpened]="isNewOpened" (closeEvent)="closePopup()">
+<div class="mt-2">
+    <app-pagination [totalItems]="adminService.totalCount" [itemsPerPage]="adminService.perPage"
+        [currentPage]="adminService.currentPage" (pageChange)="adminService.setPage($event)" />
+</div>
+
+
+<app-popup [isOpened]="adminService.isNewOpened" (closeEvent)="adminService.closeNew()">
     <app-admins-new />
 </app-popup>

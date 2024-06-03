@@ -1,15 +1,25 @@
-table {
-    @apply mt-6 rounded-lg overflow-hidden w-full;
+.title {
+  @apply px-3 py-3 text-body-2 text-primary rounded-t-md flex items-center border border-b-0 border-border;
+  background: linear-gradient(#ffffff, #ffffff00);
 }
 
-tr {
-    @apply border-b-[1px];
-    
-    &:first-child {
-        @apply bg-border whitespace-nowrap;
-        
-        th {
-            @apply p-2;
-        }
-    }
+.table {
+  @apply w-full text-body-3;
+
+  td {
+    @apply h-[40px];
+  }
+
+  th {
+    @apply h-[40px] text-primary font-medium uppercase text-body-3 text-left;
+  }
+  
+  td:first-child,
+  th:first-child {
+    @apply px-8;
+  }
+  
+  tr:nth-child(even) {
+    @apply bg-background;
+  }
 }

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ObservableInput, catchError } from 'rxjs';
 import { ImageUploadComponent } from 'src/app/components/ui/image-upload/image-upload.component';
+import { AdminService } from 'src/app/modules/admins/admin.service';
 import { ICreateAdminPayloadDTO, ICreateAdminResponseDTO } from 'src/app/modules/admins/dto/create.dto';
 import { AdminRepository } from 'src/app/modules/admins/repositories/admin.repository';
 import { GloaderService } from 'src/app/shared/services/gloader.service';
@@ -24,6 +25,7 @@ export class AdminsNewComponent implements OnInit {
   constructor(
     private readonly gloader: GloaderService,
     private readonly formBuilder: FormBuilder,
+    private readonly adminService: AdminService,
     private readonly adminRepository: AdminRepository
   ) {}
 
@@ -66,19 +68,20 @@ export class AdminsNewComponent implements OnInit {
         if (response.success) {
           this.form?.enable();
           this.form?.reset();
-          this.closePopup();
-          this.gloader.isLoading = false;
+          this.adminService.closeNew();
+          this.adminService.fetchAdmins({ page: 1 });
         }
       });
   }
-
+  
   public reset(): void {
     this.form?.reset();
-    this.closePopup();
+    this.adminService.closeNew();
   }
 
   public closePopup(): void {
-    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+    this.form?.reset();
+    this.adminService.closeNew();
   }
 
   public onImageChange(file: File | null): void {

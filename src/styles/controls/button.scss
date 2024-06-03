@@ -3,7 +3,7 @@
   @apply flex items-center justify-center gap-2;
 
   svg {
-    @apply h-5 w-5 stroke-white transition;
+    @apply transition;
   }
 
   &:hover {

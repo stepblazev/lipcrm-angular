@@ -3,70 +3,38 @@
   @apply flex items-center justify-center gap-2;
 
   svg {
-    @apply h-5 w-5 stroke-dark transition;
+    @apply transition;
   }
 
   &:hover {
     @apply text-darkprimary bg-opacity-10;
-
-    svg {
-      @apply stroke-darkprimary;
-    }
   }
 
   &--success {
     @apply text-success;
 
-    svg {
-      @apply stroke-success;
-    }
-
     &:hover {
       @apply text-darksuccess;
-
-      svg {
-        @apply stroke-darksuccess;
-      }
     }
 
     &:active {
       @apply text-success;
-
-      svg {
-        @apply stroke-success;
-      }
     }
   }
 
   &--error {
     @apply text-error;
 
-    svg {
-      @apply stroke-error;
-    }
-
     &:hover {
       @apply text-darkerror;
-
-      svg {
-        @apply stroke-darkerror;
-      }
     }
 
     &:active {
       @apply text-error;
-
-      svg {
-        @apply stroke-error;
-      }
     }
   }
 
   &:disabled {
     @apply bg-light text-white cursor-not-allowed;
-
-    svg {
-      @apply stroke-white;
-    }
   }
 }

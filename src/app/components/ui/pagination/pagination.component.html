@@ -1,0 +1,13 @@
+<div *ngIf="pages.length > 1" class="pagination">
+    <button class="pagination__button" (click)="onPrevious()" [disabled]="currentPage === 1">
+        <fa-icon [icon]="leftIcon" />
+    </button>
+    
+    <button *ngFor="let page of pages" class="pagination__button" [class.current]="page === currentPage" (click)="onPageChange(page)">
+        {{ page }}
+    </button>
+    
+    <button class="pagination__button" (click)="onNext()" [disabled]="currentPage === totalPages">
+        <fa-icon [icon]="rightIcon" />
+    </button>
+</div>

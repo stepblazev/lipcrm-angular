@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { API_URL, BASE_URL } from '../../../../constants';
 import { HttpClient } from '@angular/common/http';
-import { IAdminsResponseDTO } from '../dto/admins.dto';
+import { IAdminsPayloadDTO, IAdminsResponseDTO } from '../dto/admins.dto';
 import { IAdminDetailResponseDTO } from '../dto/admin.dto';
 import { ICreateAdminPayloadDTO, ICreateAdminResponseDTO } from '../dto/create.dto';
 import { objectToFormData } from 'src/app/shared/utils/object-to-form';
 import { IUpdateAdminPayloadDTO } from '../dto/update.dto';
 import { IDeleteAdminResponseDTO } from '../dto/delete.dto';
+import { objectToUrlParams } from 'src/app/shared/utils/object-to-url-params';
 
 @Injectable({
   providedIn: 'root',
@@ -14,9 +15,10 @@ import { IDeleteAdminResponseDTO } from '../dto/delete.dto';
 export class AdminRepository {
   constructor(private readonly http: HttpClient) {}
 
-  public admins() {
+  public admins(payload: IAdminsPayloadDTO) {
+    const params = objectToUrlParams(payload);
     return this.http.get<IAdminsResponseDTO>(
-      `${BASE_URL}${API_URL}/superadmin/admin`,
+      `${BASE_URL}${API_URL}/superadmin/admin?${params}`,
       { withCredentials: true }
     );
   }
