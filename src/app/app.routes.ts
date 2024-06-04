@@ -9,6 +9,8 @@ import { HomeComponent } from './components/pages/home/home.component';
 import { EmployeesGuard } from './modules/user/guards/employees.guard';
 import { ERoleTypes } from './modules/user/models/role';
 import { RedirectComponent } from './components/redirect.component';
+import { AdminsDetailComponent } from './components/pages/admins/admins-detail/admins-detail.component';
+import { AdminDetailResolver } from './modules/admins/resolvers/admin-detail.resolver';
 
 export const routes: Routes = [
   {
@@ -21,9 +23,11 @@ export const routes: Routes = [
   // SECTION страницы только для суперадмина
   {
     path: 'admins',
-    title: 'Список админов',
-    component: AdminsComponent,
     canActivate: [AuthGuard, SuperadminGuard],
+    children: [
+      { path: '', title: 'Список админов', component: AdminsComponent },
+      { path: ':id', title: 'Админ', component: AdminsDetailComponent, resolve: { admin: AdminDetailResolver } },
+    ],
   },
   {
     path: 'companies',
@@ -95,7 +99,7 @@ export const routes: Routes = [
     component: HomeComponent,
   },
 
-  // SECTION страницы натсроек подсистемы для админа
+  // SECTION страницы настроек подсистемы для админа
   {
     path: 'settings',
     canActivate: [

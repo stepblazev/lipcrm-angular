@@ -1,1 +1,163 @@
-<p>admins-detail works!</p>
+<button type="button" (click)="backToList()" class="btn-alt !text-[#74879A] mt-4">
+    <fa-icon [icon]="backIcon" />
+    Назад к списку
+</button>
+
+<div class="admin">
+    <div class="admin__title">Карточка администратора</div>
+
+    <form [formGroup]="profile" (ngSubmit)="update($event)" class="admin__card">
+        <div class="admin__subcard basis-[28%] self-stretch rounded-l-md">
+            <div class="admin__subcard-title">
+                Данные об администраторе
+                <app-checkbox [id]="admin.id.toString()" [checked]="admin.active"
+                    (valueChanged)="adminService.setActive(admin, $event)" />
+            </div>
+
+            <div class="mt-5 mb-12">
+
+                <app-image-upload [file]="profile.get('image')?.value" (imageChanged)="onImageChange($event)"
+                    placeholder="Загрузите или перетащите файл" />
+
+                <div class="mt-4 control" [ngClass]="{
+                    'control--error': profile.get('fio')?.invalid && profile.get('fio')?.touched
+                    }">
+                    <label class="control__caption" for="fio">ФИО</label>
+                    <input class="control__input" type="text" id="fio" formControlName="fio"
+                        placeholder="Фамилия Имя Отчество" autocomplete="off" />
+                    <div *ngIf="profile.get('fio')?.invalid && profile.get('fio')?.touched">
+                        <span *ngIf="profile.get('fio')?.hasError('minlength')" class="control__error">
+                            Минимум 3 символа
+                        </span>
+                        <span *ngIf="profile.get('fio')?.hasError('maxlength')" class="control__error">
+                            Максимум 255 символов
+                        </span>
+                    </div>
+                </div>
+
+                <div class="mt-4 control" [ngClass]="{
+                    'control--error': profile.get('phone')?.invalid && profile.get('phone')?.touched
+                    }">
+                    <label class="control__caption" for="phone">Телефон</label>
+                    <input class="control__input" type="tel" id="phone" formControlName="phone"
+                        placeholder="+7 (123) 456-78-90" autocomplete="off" />
+                    <div *ngIf="profile.get('phone')?.invalid && profile.get('phone')?.touched">
+                        <span *ngIf="profile.get('phone')?.hasError('minlength')" class="control__error">
+                            Минимум 7 символов
+                        </span>
+                        <span *ngIf="profile.get('phone')?.hasError('maxlength')" class="control__error">
+                            Максимум 50 символов
+                        </span>
+                    </div>
+                </div>
+
+                <div class="mt-4 control" [ngClass]="{
+                    'control--error': profile.get('company_name')?.invalid && profile.get('company_name')?.touched
+                    }">
+                    <label class="control__caption" for="company_name">Организация</label>
+                    <input class="control__input" type="text" id="company_name" formControlName="company_name"
+                        placeholder="Название организации" autocomplete="off" />
+                    <div *ngIf="profile.get('company_name')?.invalid && profile.get('company_name')?.touched">
+                        <span *ngIf="profile.get('company_name')?.hasError('minlength')" class="control__error">
+                            Минимум 3 символа
+                        </span>
+                        <span *ngIf="profile.get('company_name')?.hasError('maxlength')" class="control__error">
+                            Максимум 255 символов
+                        </span>
+                    </div>
+                </div>
+
+                <span class="mt-8 admin__subcard-title">Учетная запись</span>
+
+                <div class="mt-4 control" [ngClass]="{
+                    'control--error': profile.get('email')?.invalid && profile.get('email')?.touched
+                    }">
+                    <label class="control__caption" for="email">Email</label>
+                    <input class="control__input" type="text" id="email" formControlName="email"
+                        placeholder="example@gmail.com" autocomplete="off" />
+                    <div *ngIf="profile.get('email')?.invalid && profile.get('email')?.touched">
+                        <span *ngIf="profile.get('email')?.hasError('email')" class="control__error">
+                            Неверный формат эл.почты
+                        </span>
+                        <span *ngIf="profile.get('email')?.hasError('maxlength')" class="control__error">
+                            Максимум 255 символов
+                        </span>
+                    </div>
+                </div>
+
+                <div class="mt-3 flex">
+                    <div class="control" [ngClass]="{
+                        'control--error': (profile.get('password')?.invalid &&  profile.get('password')?.touched) ||  
+                                (profile.hasError('passwordsMismatch') && profile.get('password_repeat')?.touched)
+                        }">
+                        <label class="control__caption" for="password">Новый пароль</label>
+                        <input class="control__input" type="password" id="password" formControlName="password"
+                            placeholder="********" autocomplete="off" />
+                        <div *ngIf="profile.get('password')?.invalid && profile.get('password')?.touched">
+                            <span *ngIf="profile.get('password')?.hasError('minlength')" class="control__error">
+                                Минимум {{ passwordMinLength }} символов
+                            </span>
+                            <span *ngIf="profile.get('password')?.hasError('maxlength')" class="control__error">
+                                Максимум 255 символов
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="ml-2 control" [ngClass]="{
+                        'control--error': (profile.get('password_repeat')?.invalid && profile.get('password_repeat')?.touched) || 
+                                (profile.hasError('passwordsMismatch') && profile.get('password_repeat')?.touched)
+                        }">
+                        <label class="control__caption" for="password_repeat">Повторите пароль</label>
+                        <input class="control__input" type="password" id="password_repeat"
+                            formControlName="password_repeat" placeholder="********" autocomplete="off" />
+                        <div *ngIf="profile.get('password_repeat')?.invalid && profile.get('password_repeat')?.touched">
+                            <span *ngIf="profile.get('password_repeat')?.hasError('minlength')" class="control__error">
+                                Минимум {{ passwordMinLength }} символов
+                            </span>
+                            <span *ngIf="profile.get('password_repeat')?.hasError('maxlength')" class="control__error">
+                                Максимум 255 символов
+                            </span>
+                        </div>
+                        <span
+                            *ngIf="profile?.hasError('passwordsMismatch') && profile.get('password')?.valid && profile.get('password_repeat')?.valid"
+                            class="control__error">
+                            Пароли не совпадают
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="admin__subcard flex-grow self-stretch !border-l-0 rounded-br-md">
+            <span class="admin__subcard-title">Данные об использовании системы</span>
+
+
+        </div>
+        <div class="basis-[34%] self-stretch flex flex-col">
+            <div class="admin__subcard !border-l-0 rounded-tr-md">
+                <span class="admin__subcard-title">Выберите доступы для организации</span>
+    
+                <p class="mt-8">
+                    <span *ngFor="let permission of admin.company.permissions" class="block">
+                        {{ permission.display_name }}
+                    </span>
+                    <span *ngIf="!admin.company.permissions.length">
+                        Нет доступа
+                    </span>
+                </p>
+            </div>
+            <div class="admin__subcard !border-t-0 !border-l-0 rounded-br-md">
+                <span class="admin__subcard-title">Выберите доступный объём памяти</span>
+                
+                <p class="mt-8">
+                    {{admin.company.storage_limit}} ГБ
+                </p>
+            </div>
+            <div class="flex-grow flex items-end justify-end">
+                <button type="button" (click)="backToList()" class="btn-alt">Отменить</button>
+                <button type="submit" class="btn ml-2" [disabled]="profile.disabled">Сохранить изменения</button>
+            </div>
+        </div>
+    </form>
+</div>

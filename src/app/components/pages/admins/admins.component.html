@@ -1,11 +1,13 @@
-<div class="mt-8 flex justify-between items-end">
-    <div class="title">
-        <fa-icon [icon]="adminIcon" class="mr-2 text-[18px]" />
-        Администраторы
+<div class="mt-8 flex justify-end items-end">
+    <div class="flex-grow">
+        <div *ngIf="adminService.admins.length" class="title">
+            <fa-icon [icon]="adminIcon" class="mr-2 text-[18px]" />
+            Администраторы
+        </div>
     </div>
 
     <div class="mb-1 flex items-center">
-        <button *ngIf="adminService.filter.search" class="btn-alt btn-alt--error leading-[120%]"
+        <button *ngIf="adminService.filter.search" class="btn-alt leading-[120%] !text-gray hover:!text-error"
             (click)="resetFilter()">
             <fa-icon [icon]="resetIcon" />
             Сбросить
@@ -21,10 +23,8 @@
     </div>
 </div>
 
-<div class="bg-white border border-border rounded-md rounded-tl-none overflow-hidden transition opacity-0" [ngClass]="{
-    'opacity-100': adminService.admins.length
-}">
-    <table *ngIf="adminService.admins.length" class="table">
+<div *ngIf="adminService.admins.length" class="bg-white border border-border rounded-md rounded-tl-none overflow-hidden">
+    <table class="table">
         <tr>
             <th>Фото</th>
             <th class="pr-4">Активность</th>
@@ -38,7 +38,7 @@
             <th></th>
         </tr>
         <tr *ngFor="let admin of adminService.admins">
-            <td>
+            <td routerLink="/admins/{{admin.id}}" class="cursor-pointer">
                 <div class="rounded-full overflow-hidden w-[30px] h-[30px]">
                     <img class="object-cover object-center w-full h-full" src="{{ admin.getAvatarUrl() }}" alt="avatar">
                 </div>
@@ -47,7 +47,7 @@
                 <app-checkbox [id]="admin.id.toString()" [checked]="admin.active"
                     (valueChanged)="adminService.setActive(admin, $event)" />
             </td>
-            <td>
+            <td routerLink="/admins/{{admin.id}}" class="cursor-pointer hover:text-primary">
                 {{ admin.name }}
             </td>
             <td>

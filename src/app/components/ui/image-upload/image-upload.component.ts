@@ -1,5 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faTrashCan, faUser } from '@fortawesome/free-regular-svg-icons';
 
@@ -12,7 +21,7 @@ type placeholderPositions = 'left' | 'right';
   templateUrl: './image-upload.component.html',
   styleUrl: './image-upload.component.scss',
 })
-export class ImageUploadComponent {
+export class ImageUploadComponent implements OnChanges {
   public imageSrc: string | ArrayBuffer | null = null;
   public isHovering = false;
 
@@ -21,14 +30,20 @@ export class ImageUploadComponent {
   @Input() placeholderPosition?: placeholderPositions = 'right';
 
   @Output() imageChanged = new EventEmitter<File | null>();
-  
+
   @ViewChild('fileInput') fileInput: ElementRef<HTMLInputElement> | null = null;
-  
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['file']) {
+      this.readFile(changes['file'].currentValue);
+    }
+  }
+
   public onClick(): void {
     if (!this.file) {
-        if (this.fileInput) {
-            this.fileInput.nativeElement.click();
-        }
+      if (this.fileInput) {
+        this.fileInput.nativeElement.click();
+      }
     }
   }
 
@@ -36,7 +51,6 @@ export class ImageUploadComponent {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files[0]) {
       const file = input.files[0];
-      this.file = file;
       this.readFile(file);
       this.imageChanged.emit(file);
     } else {
@@ -57,12 +71,15 @@ export class ImageUploadComponent {
   public onDrop(event: DragEvent): void {
     event.preventDefault();
     event.stopPropagation();
-    
+
     this.isHovering = false;
-    
-    if (event.dataTransfer && event.dataTransfer.files && event.dataTransfer.files[0]) {
+
+    if (
+      event.dataTransfer &&
+      event.dataTransfer.files &&
+      event.dataTransfer.files[0]
+    ) {
       const file = event.dataTransfer.files[0];
-      this.file = file;
       this.readFile(file);
       this.imageChanged.emit(file);
     }
@@ -74,8 +91,11 @@ export class ImageUploadComponent {
     this.imageSrc = null;
     this.imageChanged.emit(null);
   }
-  
+
   private readFile(file: File): void {
+    if (!file) return;
+
+    this.file = file;
     const reader = new FileReader();
     reader.onload = () => {
       this.imageSrc = reader.result;

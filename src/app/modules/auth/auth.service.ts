@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { EAuthType } from './models';
+import { URLParamsService } from 'src/app/shared/services/url-params.service';
 
 @Injectable({
   providedIn: 'root',
@@ -9,8 +9,7 @@ export class AuthService {
   private authType: EAuthType = EAuthType.LOGIN;
 
   constructor(
-    private readonly router: Router,
-    private readonly activatedRoute: ActivatedRoute
+    private readonly URLParams: URLParamsService,
   ) {}
 
   public get AuthType() {
@@ -18,13 +17,7 @@ export class AuthService {
   }
 
   public set AuthType(type: EAuthType) {
-    this.router.navigate([], {
-      relativeTo: this.activatedRoute,
-      queryParams: {
-        type: type,
-      },
-    });
-
+    this.URLParams.setParam('type', type);
     this.authType = type;
   }
 }

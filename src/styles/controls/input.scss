@@ -3,10 +3,6 @@
 
   &__caption {
     @apply mb-1 flex items-center gap-1 text-gray text-body-3 font-normal transition cursor-pointer;
-
-    svg {
-      @apply stroke-dark w-4 h-4 transition;
-    }
   }
 
   &__input {
@@ -27,10 +23,6 @@
   
   &:not(&--error):focus-within &__caption {
     @apply text-primary;
-
-    svg {
-      @apply stroke-primary;
-    }
   }
 
   &__error {

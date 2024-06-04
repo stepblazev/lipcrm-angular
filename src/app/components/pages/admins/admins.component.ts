@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AdminModel } from 'src/app/modules/admins/models/admin';
 import { CheckboxComponent } from '../../ui/checkbox/checkbox.component';
 import { AdminsNewComponent } from './admins-new/admins-new.component';
@@ -10,8 +10,10 @@ import { AdminService } from 'src/app/modules/admins/admin.service';
 import { ConfirmService } from 'src/app/shared/services/confirm.service';
 import { FormsModule } from '@angular/forms';
 import { PaginationComponent } from '../../ui/pagination/pagination.component';
-import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { faPlus, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { URLParamsService } from 'src/app/shared/services/url-params.service';
+import { IAdminsPayloadDTO } from 'src/app/modules/admins/dto/admins.dto';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-admins',
@@ -23,19 +25,41 @@ import { faPlus, faXmark } from '@fortawesome/free-solid-svg-icons';
     AdminsNewComponent,
     FontAwesomeModule,
     FormsModule,
-    PaginationComponent
+    PaginationComponent,
+    RouterLink
   ],
   templateUrl: './admins.component.html',
   styleUrl: './admins.component.scss',
 })
-export class AdminsComponent implements OnInit {
+export class AdminsComponent implements OnInit, OnDestroy {
   constructor(
     public readonly adminService: AdminService,
+    private readonly URLParams: URLParamsService,
     private readonly confirm: ConfirmService
   ) {}
 
   ngOnInit(): void {
-    this.adminService.fetchAdmins({ page: 1});
+    // получаем все параметры из URL
+    const params = this.URLParams.getAllParams();
+    const payload: Omit<IAdminsPayloadDTO, 'per_page'> = {
+        page: 1,
+        search: '',
+        order_column: undefined,
+        order_by: undefined,
+    };
+
+    // если параметр URL есть в payload, вставляем значение
+    for (let key in params) {
+        if (key in payload) {
+            (payload as any)[key] = params[key];
+        }
+    }
+    
+    this.adminService.fetchAdmins(payload);
+  }
+  
+  ngOnDestroy(): void {
+    this.adminService.resetContext();
   }
 
   public resetFilter(): void {

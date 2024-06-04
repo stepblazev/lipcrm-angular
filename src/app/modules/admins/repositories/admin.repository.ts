@@ -5,7 +5,7 @@ import { IAdminsPayloadDTO, IAdminsResponseDTO } from '../dto/admins.dto';
 import { IAdminDetailResponseDTO } from '../dto/admin.dto';
 import { ICreateAdminPayloadDTO, ICreateAdminResponseDTO } from '../dto/create.dto';
 import { objectToFormData } from 'src/app/shared/utils/object-to-form';
-import { IUpdateAdminPayloadDTO } from '../dto/update.dto';
+import { IUpdateAdminPayloadDTO, IUpdateAdminResponseDTO } from '../dto/update.dto';
 import { IDeleteAdminResponseDTO } from '../dto/delete.dto';
 import { objectToUrlParams } from 'src/app/shared/utils/object-to-url-params';
 
@@ -44,9 +44,14 @@ export class AdminRepository {
   public update(payload: IUpdateAdminPayloadDTO) {
     // выносим id из payload
     const { id, ...data } = payload; 
-    return this.http.put<ICreateAdminResponseDTO>(
-      `${BASE_URL}${API_URL}/superadmin/admin/${id}`,
-      data,
+    
+    // переносим данные из data в FormData (для отправки изображения)
+    const formData = objectToFormData(data);
+    
+    return this.http.post<IUpdateAdminResponseDTO>(
+      `${BASE_URL}${API_URL}/superadmin/admin/${id}?_method=PUT`,
+      // указываем метод PUT, т.к. Laravel не хочет работать с FormData через PUT запрос ¯\_(ツ)_/¯
+      formData,
       { withCredentials: true }
     );
   }

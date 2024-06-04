@@ -1,5 +1,5 @@
 .btn-alt {
-  @apply rounded-md bg-[transparent] text-primary px-4 py-3 text-button bg-primary bg-opacity-0 transition duration-300;
+  @apply rounded-md bg-[transparent] border-[1px] border-[transparent] text-primary px-4 py-3 text-button bg-primary bg-opacity-0 transition duration-300;
   @apply flex items-center justify-center gap-2;
 
   svg {

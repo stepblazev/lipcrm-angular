@@ -59,7 +59,7 @@ export class URLParamsService {
 
     this.router.navigate([], {
       relativeTo: this.route,
-      queryParams: queryParams,
+      queryParams: [queryParams],
       queryParamsHandling: 'merge',
     });
   }

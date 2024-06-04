@@ -54,8 +54,7 @@ export class AdminsNewComponent implements OnInit {
     
     const payload: ICreateAdminPayloadDTO = this.form?.value;
 
-    this.adminRepository
-      .create(payload)
+    this.adminRepository.create(payload)
       .pipe(
         catchError<ICreateAdminResponseDTO, ObservableInput<ICreateAdminResponseDTO>>(
           (selector) => {

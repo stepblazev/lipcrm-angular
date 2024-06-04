@@ -18,8 +18,8 @@ export class AdminService {
   public filter: IAdminFilter = {}; // фильтр для выборки админов
   public filterSubject = new Subject<IAdminFilter>();
 
-  public perPage: number = 8; // кол-во админов на каждой странице
-  public currentPage: number = 0; // текущая страница
+  public perPage: number = 15; // кол-во админов на каждой странице
+  public currentPage: number = 1; // текущая страница
 
   public isNewOpened: boolean = false; // Открыто ли окно для добавления нового админа
 
@@ -36,12 +36,19 @@ export class AdminService {
     });
   }
 
+  public resetContext(): void {
+    this.filter = {}; // очищаем фильтр
+    this.admins = []; // очищаем список админов
+    this.currentPage = 1;
+    this.totalCount = 0;
+  }
+  
   public updateFilter(): void {
     this.filterSubject.next({ ...this.filter });
   }
 
   public applyFilter(): void {
-    this.fetchAdmins({ ...this.filter, page: this.currentPage });
+    this.fetchAdmins({ ...this.filter, page: 1 });
   }
 
   public setPage(page: number): void {
@@ -60,6 +67,8 @@ export class AdminService {
           );
           this.totalCount = response.meta.total_count;
           this.currentPage = response.meta.current_page;
+          this.URLParams.setParams(payload);
+          this.filter = payload;
         }
       });
   }
