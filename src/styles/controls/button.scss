@@ -2,10 +2,6 @@
   @apply rounded-md bg-primary border-[1px] border-primary text-white px-4 py-3 text-button transition duration-300;
   @apply flex items-center justify-center gap-2;
 
-  svg {
-    @apply transition;
-  }
-
   &:hover {
     @apply bg-darkprimary border-darkprimary;
   }

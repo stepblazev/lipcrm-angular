@@ -17,6 +17,9 @@ export const ErrorNotifyInterceptor: HttpInterceptorFn = (req, next) => {
         if (![0].includes(status) && selector.error.error?.message) {
           toastr.error(selector.error.error.message); // в случае ошибки выводим уведомление (сообщение приходит от сервера)
           gloader.isLoading = false; // выключаем глобальный лоадер
+        } else {
+          toastr.error(req.urlWithParams); // если нет сообщения, выводим url запроса в ошибку
+          gloader.isLoading = false; // выключаем глобальный лоадер
         }
 
         return selector;

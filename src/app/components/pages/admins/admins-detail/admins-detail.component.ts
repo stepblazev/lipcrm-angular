@@ -1,4 +1,5 @@
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
@@ -15,6 +16,7 @@ import { AdminModel } from 'src/app/modules/admins/models/admin';
 import { AdminRepository } from 'src/app/modules/admins/repositories/admin.repository';
 import { ConfirmService } from 'src/app/shared/services/confirm.service';
 import { GloaderService } from 'src/app/shared/services/gloader.service';
+import { ImageService } from 'src/app/shared/services/image.service';
 import { urlToImage } from 'src/app/shared/utils/url-to-image';
 import { matchPasswords } from 'src/app/shared/validators/match-passwords';
 import { AUTH_CONFIG } from 'src/constants';
@@ -36,6 +38,7 @@ export class AdminsDetailComponent implements OnInit {
     public readonly adminService: AdminService,
     private readonly adminRepository: AdminRepository,
     private readonly title: Title,
+    private readonly imageService: ImageService,
     private readonly gloader: GloaderService,
     private readonly fb: FormBuilder,
     private readonly confirm: ConfirmService,
@@ -69,9 +72,9 @@ export class AdminsDetailComponent implements OnInit {
   }
   
   public initAvatar(): void {
-    // если у пользователя есть аватарка, получаем ее и вносим в форму
-    if (this.admin.avatar && !this.admin.hasDefaultAvatar()) {
-        urlToImage(this.admin.getAvatarUrl()).then(file => {
+    // если у пользователя есть аватарка, получаем ее по HTTP и вносим в форму
+    if (this.admin.avatar) {
+        this.imageService.urlToFile(this.admin.getAvatarUrl()).subscribe(file => {
             this.profile.get('image')?.setValue(file);
         });
     }
@@ -88,7 +91,11 @@ export class AdminsDetailComponent implements OnInit {
     this.gloader.isLoading = true;
     this.profile?.disable();
     
-    const payload: IUpdateAdminPayloadDTO = { id: this.admin.id, ...this.getChanged() };
+    const payload: IUpdateAdminPayloadDTO =  { 
+        id: this.admin.id, 
+        image: this.profile.get('image')?.value, // image передаем всегда (если не передать, аватар будет удален у пользователя)
+        ...this.getChanged() 
+    };
 
     this.adminRepository.update(payload)
       .pipe(
@@ -115,14 +122,6 @@ export class AdminsDetailComponent implements OnInit {
     const changed: Partial<IUpdateAdminPayloadDTO> = {};
     const formValues = this.profile.value;
     
-    const avatarName = this.admin.avatar?.split('/').pop();
-    if ((formValues.image === null && !this.admin.hasDefaultAvatar()) || (formValues.image as File)?.name !== avatarName) {
-        if (formValues.image === null) {
-            changed.image = new File([new Blob], 'default.jpeg', { type: 'image/jpeg' }); // FIXME костыль (описание на сервере)
-        } else {
-            changed.image = formValues.image;
-        }
-    }
     if (formValues.fio !== this.admin.name) {
         changed.fio = formValues.fio;
     }

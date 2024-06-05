@@ -45,10 +45,7 @@ export class UserModel extends BaseModel {
   }
 
   public getAvatarUrl(): string {
-    return `http://lipcrm.local/public/storage/${this.avatar}`;
-  }
-  
-  public hasDefaultAvatar(): boolean {
-    return this.avatar === 'users/default.png';
+    const avatar = this.avatar ? this.avatar : 'users/default.png';
+    return `http://127.0.0.1:8000/storage/${avatar}`;
   }
 }
