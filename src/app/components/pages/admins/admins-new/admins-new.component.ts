@@ -53,6 +53,7 @@ export class AdminsNewComponent implements OnInit {
     this.form?.disable();
     
     const payload: ICreateAdminPayloadDTO = this.form?.value;
+    if (payload.image === null) payload.image = undefined;
 
     this.adminRepository.create(payload)
       .pipe(

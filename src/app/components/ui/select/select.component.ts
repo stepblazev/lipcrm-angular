@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, EventEmitter, HostListener, Input, Output } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
+import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 
 export interface IOption<T> {
-  caption: string;
   value: T;
-  icon?: {
-    spriteId?: string;
-    color?: string;
-  }
+  caption: string;
+  icon?: IconDefinition
 }
 
 @Component({
@@ -15,7 +15,7 @@ export interface IOption<T> {
   selector: 'app-select',
   templateUrl: './select.component.html',
   styleUrl: './select.component.scss',
-  imports: [CommonModule],
+  imports: [CommonModule, FontAwesomeModule],
 })
 export class SelectComponent {
   public isOpened: boolean = false;
@@ -51,4 +51,6 @@ export class SelectComponent {
       this.setIsOpened(false);
     }
   }
+  
+  public selectIcon = faCaretDown;
 }

@@ -1,27 +1,22 @@
 <div class="select" [ngClass]="{
     'select--disabled': disabled
 }">
-    <div class="select__current" [ngClass]="{'select__current--opened': isOpened}"
-        (click)="setIsOpened(!isOpened)">
-        <span *ngIf="current?.icon?.spriteId" class="select__icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <use [attr.xlink:href]="'assets/icons/common.sprites.svg#'+current?.icon?.spriteId"></use>
-            </svg>
-        </span>
+    <div class="select__current" [ngClass]="{'select__current--opened': isOpened}" (click)="setIsOpened(!isOpened)">
+        <!-- <fa-icon  *ngIf="current?.icon" [icon]="current?.icon" /> -->
         
         <span *ngIf="current">{{current.caption}}</span>
         <span *ngIf="!current" class="opacity-40">Не выбрано</span>
 
         <span class="select__icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <use xlink:href="assets/icons/common.sprites.svg#select-arrow"></use>
-            </svg>
+            <fa-icon [icon]="selectIcon" />
         </span>
     </div>
     <ul class="select__options" [ngClass]="{
         'select__options--hidden': !isOpened
     }">
-        <li *ngIf="allowEmpty && current" class="select__option" (click)="setOption(undefined)">
+        <li class="select__option h-[30px]" [ngClass]="{
+            '!h-0 !p-0': !(allowEmpty && current)
+        }" (click)="setOption(undefined)">
             - Не выбрано -
         </li>
         <li class="select__option" [ngClass]="{'select__option--current': option == current}"

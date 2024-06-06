@@ -2,44 +2,39 @@
     @apply relative w-full select-none cursor-pointer;
   
     &__current {
-      @apply p-2 pr-8 h-[38.55px] flex items-center border-[1px] border-b-[3px] border-light bg-white text-body-1 whitespace-nowrap leading-none transition;
+      @apply p-3 pr-8 h-[38.55px] flex items-center border border-border bg-white text-body-2 whitespace-nowrap leading-none transition-all rounded-md;
   
       &--opened {
-        @apply border-primary;
+        @apply border-primary rounded-b-none;
+
+      }
   
-        .select__icon {
-          svg {
-            @apply stroke-primary rotate-180;
-          }
-        }
+      &--opened .select__icon {
+        @apply text-primary rotate-180;
       }
     }
   
     &__icon {
-      svg {
-        @apply absolute top-[50%] translate-y-[-50%] right-[12px] w-5 h-5 stroke-light transition-[stroke];
-      }
+        @apply absolute top-[50%] translate-y-[-50%] right-[20px] text-[18px] text-light transition;
     }
   
     &__options {
-      @apply max-h-[224px] absolute top-full mt-1 left-0 w-full z-10 bg-light border-y-[3px] border-light transition-all drop-shadow-lg overflow-y-auto;
+      @apply max-h-[270px] absolute top-full left-0 w-full z-10 bg-white transition-all rounded-b-md drop-shadow-lg overflow-y-auto;
   
       &--hidden {
-        @apply opacity-0 scale-90;
-        visibility: hidden;
+        @apply opacity-0 invisible;
       }
     }
   
     &__option {
-      @apply py-[10px] px-3 flex items-center whitespace-nowrap border-x-[3px] border-light;
-      transition: all 0.2s ease;
+      @apply px-3 py-2 text-body-2 whitespace-nowrap transition-all text-darkprimary overflow-hidden;
   
       &:not(.select__option--current):hover {
-        @apply text-primary bg-white;
+        @apply text-primary bg-background;
       }
   
       &--current {
-        @apply text-primary cursor-default;
+        @apply text-primary cursor-default font-bold;
       }
     }
     

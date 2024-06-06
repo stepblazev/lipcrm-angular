@@ -1,6 +1,7 @@
 import { BaseModel } from 'src/app/core/base-model';
 import { IRoleProps, RoleModel } from './role';
 import { CompanyModel, ICompanyProps } from './company';
+import { BASE_URL } from 'src/constants';
 
 export interface IUserProps {
   id: number;
@@ -46,6 +47,6 @@ export class UserModel extends BaseModel {
 
   public getAvatarUrl(): string {
     const avatar = this.avatar ? this.avatar : 'users/default.png';
-    return `http://127.0.0.1:8000/storage/${avatar}`;
+    return `${BASE_URL}/storage/${avatar}`;
   }
 }

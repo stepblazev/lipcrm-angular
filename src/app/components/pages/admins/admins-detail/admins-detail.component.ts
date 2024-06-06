@@ -1,5 +1,4 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
@@ -17,14 +16,22 @@ import { AdminRepository } from 'src/app/modules/admins/repositories/admin.repos
 import { ConfirmService } from 'src/app/shared/services/confirm.service';
 import { GloaderService } from 'src/app/shared/services/gloader.service';
 import { ImageService } from 'src/app/shared/services/image.service';
-import { urlToImage } from 'src/app/shared/utils/url-to-image';
 import { matchPasswords } from 'src/app/shared/validators/match-passwords';
 import { AUTH_CONFIG } from 'src/constants';
+import { AdminsPermissionsComponent } from '../admins-permissions/admins-permissions.component';
 
 @Component({
   selector: 'app-admins-detail',
   standalone: true,
-  imports: [CommonModule, FontAwesomeModule, FormsModule, ReactiveFormsModule, ImageUploadComponent, CheckboxComponent],
+  imports: [
+    CommonModule, 
+    FontAwesomeModule, 
+    FormsModule, 
+    ReactiveFormsModule, 
+    ImageUploadComponent, 
+    CheckboxComponent, 
+    AdminsPermissionsComponent
+],
   templateUrl: './admins-detail.component.html',
   styleUrl: './admins-detail.component.scss',
 })
@@ -91,11 +98,7 @@ export class AdminsDetailComponent implements OnInit {
     this.gloader.isLoading = true;
     this.profile?.disable();
     
-    const payload: IUpdateAdminPayloadDTO =  { 
-        id: this.admin.id, 
-        image: this.profile.get('image')?.value, // image передаем всегда (если не передать, аватар будет удален у пользователя)
-        ...this.getChanged() 
-    };
+    const payload: IUpdateAdminPayloadDTO =  { id: this.admin.id,  ...this.getChanged() };
 
     this.adminRepository.update(payload)
       .pipe(
@@ -122,6 +125,9 @@ export class AdminsDetailComponent implements OnInit {
     const changed: Partial<IUpdateAdminPayloadDTO> = {};
     const formValues = this.profile.value;
     
+    if (this.profile.get('image')?.touched) {
+        changed.image = formValues.image;
+    }
     if (formValues.fio !== this.admin.name) {
         changed.fio = formValues.fio;
     }
