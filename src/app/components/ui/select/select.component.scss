@@ -2,7 +2,7 @@
     @apply relative w-full select-none cursor-pointer;
   
     &__current {
-      @apply p-3 pr-8 h-[38.55px] flex items-center border border-border bg-white text-body-2 whitespace-nowrap leading-none transition-all rounded-md;
+      @apply p-3 pr-8 h-[38.55px] flex items-center border border-border bg-white text-body-2 whitespace-nowrap overflow-ellipsis overflow-hidden leading-none transition-all rounded-md;
   
       &--opened {
         @apply border-primary rounded-b-none;

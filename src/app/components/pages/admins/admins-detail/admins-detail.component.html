@@ -137,16 +137,7 @@
         <div class="basis-[34%] self-stretch flex flex-col">
             <div class="admin__subcard !border-l-0 rounded-tr-md">
                 <span class="admin__subcard-title">Выберите доступы для организации [не готово]</span>
-    
-                <p class="mt-8">
-                    <span *ngFor="let permission of admin.company.permissions" class="block">
-                        {{ permission.display_name }}
-                    </span>
-                    <span *ngIf="!admin.company.permissions.length">
-                        Нет доступа
-                    </span>
-                </p>
-    
+                
                 <p class="mt-8">
                     <app-admins-permissions />
                 </p>
@@ -154,8 +145,8 @@
             <div class="admin__subcard !border-t-0 !border-l-0 rounded-br-md">
                 <span class="admin__subcard-title">Выберите доступный объём памяти [не готово]</span>
                 
-                <p class="mt-8">
-                    {{admin.company.storage_limit}} ГБ
+                <p class="mt-8 mb-4">
+                    <app-admins-storage [storage]="admin.company.storage_limit" />
                 </p>
             </div>
             <div class="flex-grow flex items-end justify-end">

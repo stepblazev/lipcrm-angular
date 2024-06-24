@@ -17,20 +17,20 @@ export interface IOption<T> {
   styleUrl: './select.component.scss',
   imports: [CommonModule, FontAwesomeModule],
 })
-export class SelectComponent {
+export class SelectComponent<T> {
   public isOpened: boolean = false;
 
   @Input() disabled: boolean = false;
   @Input() allowEmpty: boolean = true;
 
-  @Input() options: IOption<any>[];
-  @Input() current: IOption<any> | undefined;
+  @Input() options: IOption<T>[] = [];
+  @Input() current: IOption<T> | undefined;
 
-  @Output() valueChanged = new EventEmitter<IOption<any>>();
+  @Output() valueChanged = new EventEmitter<IOption<T>>();
 
   constructor(private elRef: ElementRef) {}
 
-  public setOption(option: IOption<any> | undefined) {
+  public setOption(option: IOption<T> | undefined) {
     if (option == this.current || this.disabled) return;
     this.current = option;
     this.valueChanged.emit(option);

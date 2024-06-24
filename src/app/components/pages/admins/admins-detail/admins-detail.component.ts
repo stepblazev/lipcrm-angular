@@ -19,6 +19,7 @@ import { ImageService } from 'src/app/shared/services/image.service';
 import { matchPasswords } from 'src/app/shared/validators/match-passwords';
 import { AUTH_CONFIG } from 'src/constants';
 import { AdminsPermissionsComponent } from '../admins-permissions/admins-permissions.component';
+import { AdminsStorageComponent } from '../admins-storage/admins-storage.component';
 
 @Component({
   selector: 'app-admins-detail',
@@ -30,7 +31,8 @@ import { AdminsPermissionsComponent } from '../admins-permissions/admins-permiss
     ReactiveFormsModule, 
     ImageUploadComponent, 
     CheckboxComponent, 
-    AdminsPermissionsComponent
+    AdminsPermissionsComponent,
+    AdminsStorageComponent
 ],
   templateUrl: './admins-detail.component.html',
   styleUrl: './admins-detail.component.scss',
