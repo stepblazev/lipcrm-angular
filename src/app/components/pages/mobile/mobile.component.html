@@ -1,1 +1,11 @@
-<p>mobile works!</p>
+<form (ngSubmit)="send($event)" class="mx-auto mt-[80px] w-[400px]">
+    <p class="text-body-3 text-primary uppercase font-medium">Доступ завтра после</p>
+    <app-select class="mt-4 block w-[250px]" [options]="options" [current]="current" [allowEmpty]="false" />
+    <div class="mt-5 h-[270px] border border-border rounded-md bg-white overflow-hidden">
+        <app-mobile-file />
+    </div>
+    <div class="mt-8 flex justify-end">
+        <button type="button" routerLink="/" class="btn-alt">Отмена</button>
+        <button type="submit" [disabled]="grsiForm.invalid" class="ml-2 btn">Сохранить</button>
+    </div>
+</form>

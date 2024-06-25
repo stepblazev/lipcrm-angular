@@ -1,0 +1,55 @@
+.select {
+    @apply relative w-full select-none cursor-pointer;
+  
+    &__current {
+      @apply p-3 pr-8 h-[38.55px] flex items-center border border-border bg-white text-body-2 whitespace-nowrap overflow-ellipsis overflow-hidden leading-none transition-all rounded-md;
+  
+      &--opened {
+        @apply border-primary rounded-b-none;
+
+      }
+  
+      &--opened .select__icon {
+        @apply text-primary rotate-180;
+      }
+    }
+  
+    &__icon {
+        @apply absolute top-[50%] translate-y-[-50%] right-[20px] text-[18px] text-light transition;
+    }
+  
+    &__options {
+      @apply max-h-[270px] absolute top-full left-0 w-full z-10 bg-white transition-all rounded-b-md drop-shadow-lg overflow-y-auto;
+  
+      &--hidden {
+        @apply opacity-0 invisible;
+      }
+    }
+  
+    &__option {
+      @apply px-3 py-2 pl-7 relative text-body-2 whitespace-nowrap transition-all text-darkprimary overflow-hidden;
+  
+      &:hover {
+        @apply text-primary bg-background;
+      }
+  
+      &--current {
+        @apply text-primary;
+      }
+  
+      &--current &-check {
+        @apply border-primary bg-primary text-[8px];
+      }
+      
+      &-check {
+        @apply absolute top-[50%] left-2 translate-y-[-50%] rounded-[2px] border border-darkprimary w-[12px] h-[12px] flex items-center justify-center text-[0px] text-white transition;
+      }
+    }
+    
+    &--disabled {
+        @apply cursor-default;
+    }
+    &--disabled &__current {
+        @apply bg-light;
+    }
+  }

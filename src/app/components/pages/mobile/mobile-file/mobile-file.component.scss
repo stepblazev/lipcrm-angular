@@ -1,0 +1,43 @@
+.file {
+    @apply h-full w-full flex flex-col justify-center items-center transition duration-300;
+    
+    &._hover {
+        @apply bg-background;
+    }
+    
+    &._hover &__window {
+        @apply border-primary text-primary;
+    }
+    
+    &._hover &__icon {
+        @apply scale-100 h-[24px] translate-y-[-4px] opacity-100;
+    }
+
+    &:not(._uploaded) {
+        @apply cursor-pointer;
+    }
+    
+    &__upload {
+        @apply select-none;
+    }
+    
+    &__title {
+        @apply text-body-3 text-center text-primary uppercase font-medium;
+    }
+    
+    &__window {
+        @apply mt-6 py-3 w-[260px] border border-gray border-dashed rounded-lg text-body-2 text-gray text-center transition-all duration-300;
+    }
+    
+    &__icon {
+        @apply block text-center h-[0] text-[24px] scale-0 opacity-0 transition-all duration-300;
+    }
+    
+    &__subtitle {
+        @apply mt-6 text-body-3 text-center text-gray;
+    }
+    
+    &__info {
+        @apply p-4 max-w-full flex-grow self-start;
+    }
+}

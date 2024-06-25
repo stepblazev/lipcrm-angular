@@ -1,0 +1,24 @@
+<div class="select" [ngClass]="{
+    'select--disabled': disabled
+}">
+    <div class="select__current" [ngClass]="{'select__current--opened': isOpened}" (click)="setIsOpened(!isOpened)">
+        
+        <span *ngIf="currents.length">Выбрано: {{ currents.length }}</span>
+        <span *ngIf="!currents.length" class="opacity-40">Не выбрано</span>
+
+        <span class="select__icon">
+            <fa-icon [icon]="selectIcon" />
+        </span>
+    </div>
+    <ul class="select__options" [ngClass]="{
+        'select__options--hidden': !isOpened
+    }">
+        <li class="select__option" [ngClass]="{'select__option--current': currents.includes(option)}"
+            *ngFor="let option of options" (click)="toggleOption(option)">
+            <span class="select__option-check">
+                <fa-icon [icon]="checkIcon" />
+            </span>
+            {{ option.caption }}
+        </li>
+    </ul>
+</div>

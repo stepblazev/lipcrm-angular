@@ -20,6 +20,8 @@ import { matchPasswords } from 'src/app/shared/validators/match-passwords';
 import { AUTH_CONFIG } from 'src/constants';
 import { AdminsPermissionsComponent } from '../admins-permissions/admins-permissions.component';
 import { AdminsStorageComponent } from '../admins-storage/admins-storage.component';
+import { IPermissionProps } from 'src/app/modules/user/models/company';
+import { arraysEqual } from 'src/app/shared/utils/arrays-equal';
 
 @Component({
   selector: 'app-admins-detail',
@@ -76,7 +78,9 @@ export class AdminsDetailComponent implements OnInit {
         phone: [this.admin.phone, [Validators.minLength(7), Validators.maxLength(50)]],
         email: [this.admin.email, [Validators.required, Validators.email, Validators.maxLength(255)]],
         password: ['', [Validators.minLength(this.passwordMinLength), Validators.maxLength(255)]],
-        password_repeat: ['', [Validators.minLength(this.passwordMinLength), Validators.maxLength(255)]]
+        password_repeat: ['', [Validators.minLength(this.passwordMinLength), Validators.maxLength(255)]],
+        storage_limit: [this.admin.company.storage_limit],
+        permission_ids: [this.admin.company.permissions.map(e => e.id)],
     }, { validators: matchPasswords });
   }
   
@@ -145,8 +149,20 @@ export class AdminsDetailComponent implements OnInit {
     if (formValues.password) {
         changed.password = formValues.password;
     }
+    if (formValues.storage_limit !== this.admin.company.storage_limit) {
+        changed.storage_limit = formValues.storage_limit;
+    }
+    const initPermissionIds = this.admin.company.permissions.map(e => e.id);
+    if (!arraysEqual(initPermissionIds, formValues.permission_ids)) {
+        changed.permission_ids = formValues.permission_ids;
+        console.log(changed.permission_ids);
+    }
     
     return changed;
+  }
+  
+  public onPermissionsChange(permissions: IPermissionProps[]): void {
+    this.profile.patchValue({ permission_ids: permissions.map(e => e.id) });
   }
   
   public onImageChange(file: File | null): void {

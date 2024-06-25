@@ -7,7 +7,7 @@
     <div class="admin__title">Карточка администратора</div>
 
     <form [formGroup]="profile" (ngSubmit)="update($event)" class="admin__card">
-        <div class="admin__subcard basis-[28%] self-stretch rounded-l-md">
+        <div class="admin__subcard basis-[28%] shrink-0 self-stretch rounded-l-md">
             <div class="admin__subcard-title">
                 Данные об администраторе
                 <app-checkbox [id]="admin.id.toString()" [checked]="admin.active"
@@ -129,24 +129,24 @@
             </div>
 
         </div>
-        <div class="admin__subcard flex-grow self-stretch !border-l-0 rounded-br-md">
+        <div class="admin__subcard flex-grow shrink-0 self-stretch !border-l-0 rounded-br-md">
             <span class="admin__subcard-title">Данные об использовании системы [не готово]</span>
 
 
         </div>
         <div class="basis-[34%] self-stretch flex flex-col">
             <div class="admin__subcard !border-l-0 rounded-tr-md">
-                <span class="admin__subcard-title">Выберите доступы для организации [не готово]</span>
+                <span class="admin__subcard-title">Выберите доступы для организации</span>
                 
                 <p class="mt-8">
-                    <app-admins-permissions />
+                    <app-admins-permissions [currentPermissions]="admin.company.permissions" (permissionsChanged)="onPermissionsChange($event)" />
                 </p>
             </div>
             <div class="admin__subcard !border-t-0 !border-l-0 rounded-br-md">
-                <span class="admin__subcard-title">Выберите доступный объём памяти [не готово]</span>
+                <span class="admin__subcard-title">Выберите доступный объём памяти</span>
                 
                 <p class="mt-8 mb-4">
-                    <app-admins-storage [storage]="admin.company.storage_limit" />
+                    <app-admins-storage [currentStorage]="admin.company.storage_limit" (storageChanged)="profile.patchValue({ storage_limit: $event })" />
                 </p>
             </div>
             <div class="flex-grow flex items-end justify-end">

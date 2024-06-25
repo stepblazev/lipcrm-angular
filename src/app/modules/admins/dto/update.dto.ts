@@ -10,6 +10,8 @@ export interface IUpdateAdminPayloadDTO {
     phone?: string;
     email?: string;
     password?: string;
+    storage_limit?: number;
+    permission_ids?: number[];
 }
 
 export interface IUpdateAdminResponseDTO extends IBaseHttpResponse<IAdminProps> {}

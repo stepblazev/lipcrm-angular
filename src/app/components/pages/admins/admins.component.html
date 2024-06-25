@@ -43,9 +43,11 @@
                     <img class="object-cover object-center w-full h-full" src="{{ admin.getAvatarUrl() }}" alt="avatar">
                 </div>
             </td>
-            <td class="flex items-center justify-center pr-4">
-                <app-checkbox [id]="admin.id.toString()" [checked]="admin.active"
+            <td>
+                <div class="flex items-center justify-center pr-4">
+                    <app-checkbox [id]="admin.id.toString()" [checked]="admin.active"
                     (valueChanged)="adminService.setActive(admin, $event)" />
+                </div>
             </td>
             <td routerLink="/admins/{{admin.id}}" class="cursor-pointer hover:text-primary">
                 {{ admin.name }}

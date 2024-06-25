@@ -11,7 +11,7 @@
   }
 
   th {
-    @apply h-[40px] text-primary font-medium uppercase text-body-3 text-left;
+    @apply h-[40px] text-primary font-medium uppercase whitespace-nowrap text-body-3 text-left;
   }
   
   td:first-child,

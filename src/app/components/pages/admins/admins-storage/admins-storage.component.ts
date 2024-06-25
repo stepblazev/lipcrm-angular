@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IOption, SelectComponent } from 'src/app/components/ui/select/select.component';
 
 @Component({
@@ -9,8 +9,10 @@ import { IOption, SelectComponent } from 'src/app/components/ui/select/select.co
   templateUrl: './admins-storage.component.html',
 })
 export class AdminsStorageComponent implements OnInit {
-    @Input() storage: number;
+    @Input() currentStorage: number;
+    @Output() storageChanged = new EventEmitter<number>();
     
+    public current: IOption<number>;
     public options: IOption<number>[] = [
         { value: 1, caption: '1 ГБ' },
         { value: 2, caption: '2 ГБ' },
@@ -28,15 +30,15 @@ export class AdminsStorageComponent implements OnInit {
         { value: 25, caption: '25 ГБ' },
         { value: 50, caption: '50 ГБ' },
     ]
-    @Input() current: IOption<number>;
     
     constructor() {}
     
     ngOnInit(): void {
-        this.current = this.options.find(option => option.value == this.storage) || this.options[0];
+        this.current = this.options.find(option => option.value == this.currentStorage) || this.options[0];
     }
 
-    public setCurrent(value: IOption<number>): void {
-        this.current = value;
+    public setCurrent(option: IOption<number>): void {
+        this.current = option;
+        this.storageChanged.emit(option.value);
     }
 }
