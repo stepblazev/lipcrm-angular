@@ -1,0 +1,25 @@
+<div class="news" [ngClass]="{ '_opened': news.isOpened}">
+    
+    <button type="button" class="news__button" (click)="news.open()" title="Блок с новостями">
+        <fa-icon [icon]="newsIcon" class="mr-2 text-[20px]" /> 
+        Новости
+    </button>
+    
+    <div class="window">
+        <button type="button" (click)="news.close()" class="window__close">
+            <fa-icon [icon]="closeIcon" /> 
+        </button>
+        
+        <app-news-list *ngIf="news.mode === ENewsModes.LIST" />
+        <app-news-detail *ngIf="news.mode === ENewsModes.DETAIL" />
+        <app-news-add *ngIf="news.mode === ENewsModes.ADD" />
+        
+        <div class="mt-6 flex">
+            <button type="button" class="btn-alt" (click)="news.setMode(ENewsModes.LIST)">list</button>
+            <button type="button" class="btn-alt" (click)="news.setMode(ENewsModes.DETAIL)">detail</button>
+            <button type="button" class="btn-alt" (click)="news.setMode(ENewsModes.ADD)">add</button>
+        </div>
+        
+    </div>
+    
+</div>

@@ -38,6 +38,6 @@
     }
     
     &__info {
-        @apply p-4 max-w-full flex-grow self-start;
+        @apply p-4 max-w-full flex flex-col items-center;
     }
 }

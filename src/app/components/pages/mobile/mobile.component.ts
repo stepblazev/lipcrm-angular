@@ -1,17 +1,16 @@
-import { CommonModule, Location  } from '@angular/common';
+import { CommonModule  } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { SelectComponent } from '../../ui/select/select.component';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IOption } from '../../ui/multi-select/multi-select.component';
-import { MobileFileComponent } from './mobile-file/mobile-file.component';
 import { RouterLink } from '@angular/router';
+import { FileUploadComponent } from '../../ui/file-upload/file-upload.component';
 
 @Component({
   selector: 'app-mobile',
   standalone: true,
-  imports: [CommonModule, SelectComponent, FormsModule, ReactiveFormsModule, MobileFileComponent, RouterLink],
+  imports: [CommonModule, SelectComponent, FormsModule, ReactiveFormsModule, FileUploadComponent, RouterLink],
   templateUrl: './mobile.component.html',
-  styleUrl: './mobile.component.scss'
 })
 export class MobileComponent implements OnInit {
     public grsiForm: FormGroup;
@@ -39,9 +38,11 @@ export class MobileComponent implements OnInit {
     
     public setCurrentTime(option: IOption<string>): void {
         this.current = option;
-        this.grsiForm.patchValue({
-            time: option.value
-        });
+        this.grsiForm.patchValue({ time: option.value });
+    }
+    
+    public setFile(file: File | null): void {
+        this.grsiForm.patchValue({ file: file });
     }
     
     private generateTimeOptions(step: number): IOption<string>[] {

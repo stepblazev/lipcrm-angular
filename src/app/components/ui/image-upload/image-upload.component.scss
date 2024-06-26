@@ -29,9 +29,6 @@
     @apply border-none;
   }
 
-  &._uploaded &__controls {
-    @apply block;
-  }
 
   &__caption {
     @apply m-3 text-gray text-body-3 transition ease-in;
@@ -50,7 +47,7 @@
   }
 
   &__controls {
-    @apply ml-2 self-end hidden;
+    @apply ml-2 self-end;
   }
 
   &__name, &__size {

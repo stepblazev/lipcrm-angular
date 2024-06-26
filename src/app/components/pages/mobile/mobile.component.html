@@ -1,8 +1,8 @@
 <form (ngSubmit)="send($event)" class="mx-auto mt-[80px] w-[400px]">
     <p class="text-body-3 text-primary uppercase font-medium">Доступ завтра после</p>
-    <app-select class="mt-4 block w-[250px]" [options]="options" [current]="current" [allowEmpty]="false" />
+    <app-select class="mt-4 block w-[250px]" [options]="options" [current]="current" (valueChanged)="setCurrentTime($event)" [allowEmpty]="false" />
     <div class="mt-5 h-[270px] border border-border rounded-md bg-white overflow-hidden">
-        <app-mobile-file />
+        <app-file-upload (fileChange)="setFile($event)" accept=".xls, .xlsx" title="Перезагрузить таблицу ГРСИ" subtitle="Загрузка файлов xls, xlsx форматов до 100 МБ" />
     </div>
     <div class="mt-8 flex justify-end">
         <button type="button" routerLink="/" class="btn-alt">Отмена</button>

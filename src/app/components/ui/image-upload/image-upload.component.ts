@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faTrashCan, faUser } from '@fortawesome/free-regular-svg-icons';
+import { getFileSize } from 'src/app/shared/utils/file-size';
 
 type placeholderPositions = 'left' | 'right';
 
@@ -33,6 +34,8 @@ export class ImageUploadComponent implements OnChanges {
 
   @ViewChild('fileInput') fileInput: ElementRef<HTMLInputElement> | null = null;
 
+  getFileSize = getFileSize;
+  
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['file']) {
       this.readFile(changes['file'].currentValue);

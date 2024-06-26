@@ -1,11 +1,11 @@
 <div class="file" [ngClass]="{ '_hover': isHovering, '_uploaded': file }" (click)="onClick()"
         (dragover)="onDragOver($event)" (dragleave)="onDragLeave()" (drop)="onDrop($event)">
         
-    <input type="file" #fileInput (change)="onFileChange($event)" accept=".xls, .xlsx" hidden />
+    <input type="file" #fileInput (change)="onFileChange($event)" [attr.accept]="accept" hidden />
     
     <div *ngIf="!file" class="file__upload">
         <p class="file__title">
-            Перезагрузить таблицу ГРСИ
+            {{ title }}
         </p>
         
         <div class="file__window">
@@ -14,20 +14,23 @@
         </div>
         
         <p class="file__subtitle">
-            Загрузка <b>xls, xlsx</b> файлов до <b>100 МБ</b>
+            {{ subtitle }}
         </p>
     </div>
     
     <div *ngIf="file" class="file__info">
-        <div class="flex items-center text-success text-[24px] font-bold">
-            <fa-icon [icon]="fileIcon" class="mr-3 shrink-0" />
-            <span class="pb-1 flex-grow text-[inherit] whitespace-nowrap overflow-hidden overflow-ellipsis">
+        <div class="max-w-full">
+            <fa-icon *ngIf="!imageSrc" [icon]="fileIcon" class="text-primary text-[60px]" />
+            <div *ngIf="imageSrc" class="w-full h-[100px]">
+                <img [src]="imageSrc" class="object-contain object-center w-full h-full" alt="" />
+            </div>
+            <p class="mt-2 pb-1 text-center text-body-1 text-primary font-bold whitespace-nowrap overflow-hidden overflow-ellipsis">
                 {{ file.name }}
-            </span>
+            </p>
         </div>
         <div class="mt-4 text-body-2">Размер файла: <span class="text-gray text-body-3">{{ getFileSize(file.size) }}</span></div>
         <div class="mt-2 text-body-2">Последнее изменение: <span class="text-gray text-body-3">{{ getFormattedDate(file.lastModified) }}</span></div>
-        <button type="button" class="mt-4 !p-2 btn-alt btn-alt--error" (click)="deleteHandler($event)">
+        <button type="button" class="mt-4 !p-2 btn-alt btn-alt--error" (click)="deleteFile($event)">
             <fa-icon [icon]="deleteIcon" />
             Удалить
         </button>

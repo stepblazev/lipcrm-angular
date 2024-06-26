@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { IsActiveMatchOptions, Router, RouterLink } from '@angular/router';
+import { IsActiveMatchOptions, NavigationEnd, Router, RouterLink } from '@angular/router';
 import { AuthRepository } from 'src/app/modules/auth/repositories/auth.repository';
 import { UserService } from 'src/app/modules/user/user.service';
 import { ConfirmService } from 'src/app/shared/services/confirm.service';
@@ -8,18 +8,30 @@ import { GloaderService } from 'src/app/shared/services/gloader.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { menuLinks } from 'src/app/modules/menu/links';
 import { IMenuLink } from 'src/app/modules/menu/link.interface';
-import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRightFromBracket, faGear } from '@fortawesome/free-solid-svg-icons';
+import { ISettingLink } from 'src/app/modules/settings/link.interface';
+import { settingLinks } from 'src/app/modules/settings/links';
+import { ERoleTypes } from 'src/app/modules/user/models/role';
+import { faHardDrive } from '@fortawesome/free-regular-svg-icons';
+import { PopupComponent } from '../../ui/popup/popup.component';
+import { filter } from 'rxjs';
 
 @Component({
   standalone: true,
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
-  imports: [CommonModule, FontAwesomeModule, RouterLink],
+  imports: [CommonModule, FontAwesomeModule, RouterLink, PopupComponent],
 })
 export class HeaderComponent implements OnInit{
   public links: IMenuLink[] = [];
+  public settingLinks: ISettingLink[] = [];
+  
+  public showSettings: boolean = false;
+  public showStorage: boolean = false;
 
+  ERoleTypes = ERoleTypes;
+  
   constructor(
     public readonly userService: UserService,
     private readonly router: Router,
@@ -31,7 +43,17 @@ export class HeaderComponent implements OnInit{
   public ngOnInit(): void {
     if (this.userService.currentUser) {
         this.links = menuLinks[this.userService.currentUser.role.name];
+        if (this.userService.currentUser.role.name === ERoleTypes.ADMIN) {
+            this.settingLinks = settingLinks;
+        }
     }
+    
+    // при изменении страницы, закрываем меню настроек
+    this.router.events.pipe(
+        filter(event => event instanceof NavigationEnd)
+      ).subscribe(() => {
+        this.showSettings = false;
+      });
   }
   
   public isActiveRoute(path: string): boolean {
@@ -69,6 +91,7 @@ export class HeaderComponent implements OnInit{
       });
   }
 
-  // икноки
+  public settingsIcon = faGear;
+  public storageIcon = faHardDrive;
   public logoutIcon = faArrowRightFromBracket;
 }

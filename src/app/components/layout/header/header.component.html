@@ -31,10 +31,58 @@
                             src="{{ userService.currentUser.getAvatarUrl() }}" alt="avatar">
                     </div>
                 </div>
-                <button type="button" class="ml-4 btn" (click)="logout()">
+                
+                <button *ngIf="userService.currentUser.role.name === ERoleTypes.ADMIN" type="button" class="ml-4 btn" (click)="showSettings=!showSettings">
+                    <fa-icon [icon]="settingsIcon" class="transition duration-300" [ngClass]="{'rotate-90 scale-125':showSettings}" />
+                </button>
+                
+                <button *ngIf="userService.currentUser.role.name !== ERoleTypes.ADMIN" type="button" class="ml-4 btn" (click)="logout()">
                     <fa-icon [icon]="logoutIcon" />
                 </button>
+                
             </div>
+            
+            <nav class="settings" [ngClass]="{'_opened': showSettings}">
+                <ul class="settings__list">
+                    <li *ngFor="let link of settingLinks">
+                        <a [routerLink]="link.href" class="settings__link">
+                            <div class="w-[24px] flex">
+                                <fa-icon *ngIf="link.icon" [icon]="link.icon" />
+                            </div>
+                            <span>{{ link.name }}</span>
+                        </a>
+                    </li>
+                    <li class="settings__link" (click)="showStorage=true">
+                        <div class="w-[24px] flex">
+                            <fa-icon [icon]="storageIcon" />
+                        </div>
+                        <span>Память</span>
+                    </li>
+                    <li class="settings__link" (click)="logout()">
+                        <div class="w-[24px] flex">
+                            <fa-icon [icon]="logoutIcon" />
+                        </div>
+                        <span>Выход</span>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 </header>
+
+<app-popup *ngIf="userService.currentUser" [isOpened]="showStorage" (closeEvent)="showStorage=false">
+    <div class="px-8 py-6 w-[406px]">
+        <div class="text-body-1 font-medium text-header">Память</div>
+        <div class="mt-10">
+            <div class="flex justify-between">
+                <span class="text-primary text-body-3 font-medium">занято 6 ГБ</span>
+                <span class="text-gray text-body-3">свободно {{userService.currentUser.company?.storage_limit}} ГБ</span>
+            </div>
+            <div class="mt-3 h-[9px] w-full bg-[#E1E9F1] rounded-xl overflow-hidden">
+                <div class="h-full w-[50%] bg-primary rounded-xl"></div>
+            </div>
+            <div class="mt-2 text-center text-gray text-body-3">выделено {{userService.currentUser.company?.storage_limit}} ГБ</div>
+        </div>
+        <button type="button" class="btn-alt mt-4 ml-auto" (click)="showStorage=false">Закрыть</button>
+    </div>
+</app-popup>

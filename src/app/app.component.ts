@@ -8,6 +8,8 @@ import { GloaderComponent } from './components/features/gloader/gloader.componen
 import { UserRepository } from './modules/user/repositories/user.repository';
 import { ObservableInput, catchError, first } from 'rxjs';
 import { IMeResponseDTO } from './modules/user/dto/me.dto';
+import { NewsComponent } from './components/features/news/news.component';
+import { ERoleTypes } from './modules/user/models/role';
 
 @Component({
   standalone: true,
@@ -19,11 +21,12 @@ import { IMeResponseDTO } from './modules/user/dto/me.dto';
     HeaderComponent,
     CommonModule,
     GloaderComponent,
+    NewsComponent
   ],
 })
 export class AppComponent implements OnInit {
   title = 'CRM';
-
+  
   constructor(
     private router: Router,
     private userService: UserService,
@@ -70,5 +73,9 @@ export class AppComponent implements OnInit {
     };
 
     return this.router.isActive(path, options);
+  }
+  
+  public showNews(): boolean {
+    return this.userService.currentUser?.role.name !== ERoleTypes.SUPERADMIN;
   }
 }

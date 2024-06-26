@@ -1,0 +1,18 @@
+<div class="text-[20px] font-medium text-primary">Новости</div>
+<div class="mt-2">
+  <div
+    (click)="news.setMode(ENewsModes.DETAIL)"
+    class="p-3 pb-4 border border-[#E1E9F1] rounded-md overflow-hidden transition cursor-pointer hover:border-primary"
+  >
+    <div class="flex justify-between items-end">
+      <div class="text-body-1 text-primary font-medium">Заголовок</div>
+      <div class="text-[10px]">12.05.2021</div>
+    </div>
+    <div
+      class="mt-2 text-body-3 line-clamp-2 overflow-ellipsis overflow-hidden"
+    >
+      Текст новости на сегодня для операторов и логистов. Коллеги, сегодня перед
+      нами стоит выполнить задачу
+    </div>
+  </div>
+</div>

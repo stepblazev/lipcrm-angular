@@ -2,7 +2,7 @@
   @apply py-3 bg-header max-w-[100vw];
 
   &__content {
-    @apply flex items-center;
+    @apply flex items-center relative;
   }
 
   &__logo {
@@ -50,4 +50,29 @@
   &__user {
     @apply flex-grow flex items-center justify-end;
   }
+}
+
+.settings {
+    @apply absolute right-0 bg-white rounded-b-lg translate-y-[-100%] z-[-1] shadow-xl select-none transition duration-300;
+    top: calc(100% + 0.75rem);
+    
+    &._opened {
+        @apply translate-y-0;
+    }
+    
+    &__list {
+        @apply py-2;
+    }
+    
+    &__link {
+        @apply px-3 pr-8 py-2 flex items-center text-header transition cursor-pointer;
+        
+        * {
+            @apply text-[inherit] text-body-2;
+        }
+        
+        &:hover {
+            @apply bg-background;
+        }
+    }
 }

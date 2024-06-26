@@ -7,9 +7,9 @@
     </div>
     <span *ngIf="placeholder" class="uploader__caption">{{ placeholder }}</span>
     
-    <div class="uploader__controls">
-        <div class="uploader__name">{{ file?.name }}</div>
-        <div class="uploader__size">{{ file?.size }} bytes</div>
+    <div *ngIf="file" class="uploader__controls">
+        <div class="uploader__name">{{ file.name }}</div>
+        <div class="uploader__size">{{ getFileSize(file.size) }}</div>
         <button type="button" class="mt-1 !p-1 btn-alt btn-alt--error" (click)="deleteHandler($event)">
             <fa-icon [icon]="deleteIcon" />
             Удалить

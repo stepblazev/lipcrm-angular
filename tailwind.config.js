@@ -11,8 +11,6 @@ export default {
             padding: { DEFAULT: '1rem' },
         },
         fontSize: {
-            "header": ["36px", { fontWeight: "700" }],
-
             "body-1": ["16px", { fontWeight: 400 }],
             "body-2": ["14px", { fontWeight: 400 }],
             "body-3": ["12px", { fontWeight: 400 }],
