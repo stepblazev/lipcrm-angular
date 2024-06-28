@@ -76,6 +76,6 @@ export class AppComponent implements OnInit {
   }
   
   public showNews(): boolean {
-    return this.userService.currentUser?.role.name !== ERoleTypes.SUPERADMIN;
+    return !this.isActiveRoute('/auth') && this.userService.currentUser?.role.name !== ERoleTypes.SUPERADMIN;
   }
 }

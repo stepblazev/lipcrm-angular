@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { IsActiveMatchOptions, NavigationEnd, Router, RouterLink } from '@angular/router';
 import { AuthRepository } from 'src/app/modules/auth/repositories/auth.repository';
 import { UserService } from 'src/app/modules/user/user.service';
@@ -30,7 +30,8 @@ export class HeaderComponent implements OnInit{
   public showSettings: boolean = false;
   public showStorage: boolean = false;
 
-  ERoleTypes = ERoleTypes;
+  @ViewChild('settings') settings: ElementRef<HTMLInputElement>;
+  @ViewChild('settingsBtn') settingsBtn: ElementRef<HTMLInputElement>;
   
   constructor(
     public readonly userService: UserService,
@@ -89,6 +90,20 @@ export class HeaderComponent implements OnInit{
           });
         }
       });
+  }
+  
+  public isAdmin(): boolean {
+    return this.userService.currentUser?.role.name === ERoleTypes.ADMIN ||
+        this.userService.currentUser?.role.name === ERoleTypes.SUBADMIN;
+  }
+  
+  @HostListener('document:click', ['$event'])
+  public handleClick(event: Event) {
+    if (!this.isAdmin()) return;
+    const target = event.target as HTMLDivElement;
+    if (!this.settings.nativeElement.contains(target) && !this.settingsBtn.nativeElement.contains(target)) {
+      this.showSettings = false;
+    }
   }
 
   public settingsIcon = faGear;

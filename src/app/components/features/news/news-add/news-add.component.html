@@ -1,17 +1,26 @@
-<div>Создать новость</div>
-<form>
-    <div>
-        <label for="title">Заголовок</label>
-        <input type="text" id="title" name="title" placeholder="Заголовок...">
-    </div>
-    
-    <div>
-        <label for="content">Текст новости</label>
-        <textarea id="content" name="content" placeholder="Текст..."></textarea>
-    </div>
-    
-    <div class="flex justify-end">
-        <button type="button" class="btn-alt">Отмена</button>
-        <button type="submit" class="btn ml-2">Создать</button>
-    </div>
-</form>
+<div class="p-5 pt-3 h-full flex flex-col items-stretch bg-background">
+    <button type="button" class="back-btn" (click)="news.setMode(news.ENewsModes.LIST)">
+        <fa-icon [icon]="backIcon" class="mr-2 text-[14px]" />
+        Назад
+    </button>
+    <form class="mt-4 flex-grow flex flex-col items-stretch" (submit)="create($event)">
+        <div class="text-body-1 text-primary font-medium">Создать новость</div>
+        
+        <div class="mt-4 control">
+            <label class="control__caption" for="title">Заголовок</label>
+            <input class="control__input !py-2 !px-3" id="title" type="text" placeholder="Заголовок..." autocomplete="off" />
+        </div>
+        
+        <div class="flex-grow">
+            <div class="mt-3 control">
+                <label class="control__caption" for="content">Содержание</label>
+                <textarea class="control__input textarea" id="content" placeholder="Текст..."></textarea>
+            </div>
+        </div>
+
+        <div class="flex justify-end">
+            <button type="button" class="btn-alt" (click)="news.setMode(news.ENewsModes.LIST)">Отмена</button>
+            <button type="submit" class="btn ml-2">Создать</button>
+        </div>
+    </form>
+</div>

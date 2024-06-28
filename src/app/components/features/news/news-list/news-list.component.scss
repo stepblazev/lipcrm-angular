@@ -1,0 +1,31 @@
+.add-btn {
+    @apply ml-2 p-1 w-[24px] h-[24px] bg-primary rounded-md text-[14px] text-white transition;
+    
+    &:hover {
+        @apply bg-darkprimary;
+    }
+}
+
+.news {
+    @apply p-2 pt-3 pb-4 border border-[#E1E9F1] rounded-md overflow-hidden transition cursor-pointer;
+        
+    &:hover{
+        @apply border-primary;
+    }
+    
+    &:not(:first-child) {
+        @apply mt-[6px];
+    } 
+    
+    &__title {
+        @apply text-body-1 text-primary font-medium whitespace-nowrap overflow-hidden overflow-ellipsis;
+    }
+    
+    &__date {
+        @apply text-[10px] ml-2;
+    }
+    
+    &__content {
+        @apply mt-2 text-body-3 tracking-normal leading-[14px] line-clamp-2 overflow-ellipsis overflow-hidden;
+    }
+}

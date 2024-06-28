@@ -1,0 +1,11 @@
+.back-btn {
+    @apply relative right-2 flex items-center self-start text-gray text-body-3 transition;
+    
+    &:hover {
+        @apply text-primary;
+    }
+}
+
+.textarea {
+    @apply resize-y max-h-[168px] min-h-[84px] py-2 px-3 transition-[border];
+}

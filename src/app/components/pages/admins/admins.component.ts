@@ -70,7 +70,7 @@ export class AdminsComponent implements OnInit, OnDestroy {
   public deleteAdmin(admin: AdminModel): void {
     this.confirm
       .confirm({
-        title: 'Удалить?',
+        title: 'Удаление админа',
         message: 'Вы действительно хотите удалить админа без возможности восстановления?<br><br> Вместе с админом будет  <b>удалена организация со всеми ее данными</b>!',
         confirm: 'Да',
         cancel: 'Нет',

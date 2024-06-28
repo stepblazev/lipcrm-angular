@@ -1,5 +1,5 @@
 .news {
-    @apply fixed bottom-12 right-12 z-10;
+    @apply fixed bottom-12 right-12 z-[-2];
     
     &__button {
         @apply py-3 px-4 flex items-center bg-primary rounded-md text-body-2 font-medium text-white shadow-xl transition-all duration-500;
@@ -23,7 +23,7 @@
 }
 
 .window {
-    @apply w-[285px] h-[390px] px-3 py-4 absolute bottom-0 right-0 translate-x-[400px] bg-white rounded-md shadow-lg transition-all duration-500;
+    @apply w-[285px] h-[405px] absolute bottom-0 right-0 translate-x-[400px] bg-white rounded-md shadow-lg transition-all duration-500 overflow-hidden;
     
     &__close {
         @apply w-[18px] h-[18px] absolute top-2 right-2 text-primary text-[18px];

@@ -68,11 +68,15 @@
         @apply px-3 pr-8 py-2 flex items-center text-header transition cursor-pointer;
         
         * {
-            @apply text-[inherit] text-body-2;
+            @apply text-[inherit] text-body-2 whitespace-nowrap;
         }
         
         &:hover {
             @apply bg-background;
+        }
+        
+        &._active {
+            @apply bg-background cursor-default;
         }
     }
 }

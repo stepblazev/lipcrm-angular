@@ -22,8 +22,6 @@ import { NewsAddComponent } from './news-add/news-add.component';
   styleUrl: './news.component.scss',
 })
 export class NewsComponent {
-  ENewsModes = ENewsModes;
-
   constructor(public readonly news: NewsService) {}
 
   public newsIcon = faNewspaper;

@@ -1,1 +1,19 @@
-<p>news-detail works!</p>
+<div class="p-5 pt-3 h-full max-h-full flex flex-col items-stretch">
+    <button type="button" class="back-btn" (click)="news.setMode(news.ENewsModes.LIST)">
+        <fa-icon [icon]="backIcon" class="mr-2 text-[14px]" />
+        Назад
+    </button>
+
+    <div *ngIf="news.detail" class="news">
+        <div>
+            <div class="news__date">{{ news.detail.getFormattedDate() }}</div>
+            <div class="news__title">{{ news.detail.title }}</div>
+        </div>
+        <div class="news__content" [innerHTML]="news.detail.content"></div>
+        <button *ngIf="allowDelete()" type="button" class="btn-alt btn-alt--error mt-2" (click)="delete()">
+            <fa-icon [icon]="deleteIcon" />
+            Удалить
+        </button>
+    </div>
+    
+</div>

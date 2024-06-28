@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { LocalStorageService } from '../../shared/services/local-storage.service';
 import { LOCAL_STORAGE_KEYS } from '../../../constants';
 import { IUserProps, UserModel } from './models/user';
+import { ERoleTypes } from './models/role';
 
 @Injectable({
   providedIn: 'root',
@@ -10,6 +11,8 @@ export class UserService {
   public isAuthorized = false;
   public currentUser: UserModel | null = null;
 
+  public ERoleTypes = ERoleTypes;
+  
   constructor(private readonly localStorageService: LocalStorageService) {}
 
   public authorize(userProps: IUserProps): void {

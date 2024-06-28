@@ -1,0 +1,23 @@
+.back-btn {
+    @apply relative right-2 flex items-center self-start text-gray text-body-3 transition;
+    
+    &:hover {
+        @apply text-primary;
+    }
+}
+
+.news {
+    @apply mt-4 flex-grow flex flex-col items-stretch overflow-hidden;
+    
+    &__title {
+        @apply text-body-1 text-primary font-medium;
+    }
+    
+    &__date {
+        @apply ml-2 text-[10px] float-right;
+    }
+        
+    &__content {
+        @apply mt-2 flex-grow text-body-3 tracking-normal leading-4 overflow-y-scroll;
+    }
+}
