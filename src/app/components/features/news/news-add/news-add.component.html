@@ -3,24 +3,28 @@
         <fa-icon [icon]="backIcon" class="mr-2 text-[14px]" />
         Назад
     </button>
-    <form class="mt-4 flex-grow flex flex-col items-stretch" (submit)="create($event)">
+    <form class="mt-4 flex-grow flex flex-col items-stretch" [formGroup]="form" (submit)="create($event)">
         <div class="text-body-1 text-primary font-medium">Создать новость</div>
         
-        <div class="mt-4 control">
+        <div class="mt-4 control" [ngClass]="{
+            'control--error': form.get('title')?.invalid && form.get('title')?.touched
+            }">
             <label class="control__caption" for="title">Заголовок</label>
-            <input class="control__input !py-2 !px-3" id="title" type="text" placeholder="Заголовок..." autocomplete="off" />
+            <input class="control__input !py-2 !px-3" id="title" type="text" formControlName="title"  placeholder="Заголовок..." autocomplete="off" />
         </div>
         
         <div class="flex-grow">
-            <div class="mt-3 control">
+            <div class="mt-3 control" [ngClass]="{
+                'control--error': form.get('content')?.invalid && form.get('content')?.touched
+                }">
                 <label class="control__caption" for="content">Содержание</label>
-                <textarea class="control__input textarea" id="content" placeholder="Текст..."></textarea>
+                <textarea class="control__input textarea" id="content" formControlName="content" placeholder="Текст..."></textarea>
             </div>
         </div>
 
         <div class="flex justify-end">
             <button type="button" class="btn-alt" (click)="news.setMode(news.ENewsModes.LIST)">Отмена</button>
-            <button type="submit" class="btn ml-2">Создать</button>
+            <button type="submit" class="btn ml-2" [disabled]="form.disabled">Создать</button>
         </div>
     </form>
 </div>

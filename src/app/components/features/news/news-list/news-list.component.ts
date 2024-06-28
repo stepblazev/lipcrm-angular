@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { ENewsModes, NewsService } from 'src/app/modules/news/news.service';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { NewsService } from 'src/app/modules/news/news.service';
 import { ERoleTypes } from 'src/app/modules/user/models/role';
 import { UserService } from 'src/app/modules/user/user.service';
 
@@ -12,6 +12,8 @@ import { UserService } from 'src/app/modules/user/user.service';
   styleUrl: './news-list.component.scss',
 })
 export class NewsListComponent {
+  @ViewChild('scrollContainer') scrollContainer!: ElementRef;
+    
   constructor(
     public readonly news: NewsService,
     public readonly user: UserService
@@ -24,5 +26,19 @@ export class NewsListComponent {
             this.user.currentUser.role.name === ERoleTypes.SUBADMIN ||
             this.user.currentUser.role.name === ERoleTypes.LOGIST
     );
+  }
+  
+  ngAfterViewInit(): void {
+    this.scrollContainer.nativeElement.addEventListener('scroll', () => this.onScroll());
+  }
+
+  private onScroll(): void {
+    if (this.news.isLoading || this.news.total === this.news.news.length) return;
+    
+    const element = this.scrollContainer.nativeElement;
+    if (element.scrollHeight - element.scrollTop <= element.clientHeight + 30) {
+      this.news.page++;
+      this.news.fetchNews();
+    }
   }
 }

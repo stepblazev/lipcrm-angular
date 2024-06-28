@@ -1,18 +1,18 @@
 <div class="news" [ngClass]="{ '_opened': news.isOpened}">
     
-    <button type="button" class="news__button" (click)="news.open()" title="Блок с новостями">
+    <button type="button" class="news__button" (click)="news.open()" title="Блок новостей">
         <fa-icon [icon]="newsIcon" class="mr-2 text-[20px]" /> 
         Новости
     </button>
     
     <div class="window">
-        <button type="button" class="window__close" (click)="news.close()">
+        <button type="button" class="window__close" (click)="news.close()" title="Закрыть блок новостей">
             <fa-icon [icon]="closeIcon" /> 
         </button>
         
-        <app-news-list *ngIf="news.mode === news.ENewsModes.LIST" />
-        <app-news-detail *ngIf="news.mode === news.ENewsModes.DETAIL" />
-        <app-news-add *ngIf="news.mode === news.ENewsModes.ADD" />
+        <app-news-list [ngClass]="{'hidden': news.mode !== news.ENewsModes.LIST}" />
+        <app-news-detail [ngClass]="{'hidden': news.mode !== news.ENewsModes.DETAIL}" />
+        <app-news-add *ngIf="news.mode === news.ENewsModes.ADD" [ngClass]="{'hidden': news.mode !== news.ENewsModes.ADD}" />
         
     </div>
     

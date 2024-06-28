@@ -2,7 +2,7 @@
     @apply fixed bottom-12 right-12 z-[-2];
     
     &__button {
-        @apply py-3 px-4 flex items-center bg-primary rounded-md text-body-2 font-medium text-white shadow-xl transition-all duration-500;
+        @apply py-3 px-4 flex items-center bg-primary rounded-md text-body-2 font-medium text-white shadow-xl transition-all duration-[400ms];
         
         &:hover {
             @apply bg-darkprimary;
@@ -14,7 +14,7 @@
     }
     
     &._opened .window {
-        @apply translate-x-0;
+        @apply translate-x-0 scale-100;
     }
     
     &._opened &__button {
@@ -23,7 +23,7 @@
 }
 
 .window {
-    @apply w-[285px] h-[405px] absolute bottom-0 right-0 translate-x-[400px] bg-white rounded-md shadow-lg transition-all duration-500 overflow-hidden;
+    @apply w-[285px] h-[405px] absolute bottom-0 right-0 translate-x-[300px] scale-0 bg-white rounded-md shadow-lg transition-all duration-[400ms] overflow-hidden;
     
     &__close {
         @apply w-[18px] h-[18px] absolute top-2 right-2 text-primary text-[18px];

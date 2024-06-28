@@ -29,3 +29,38 @@
         @apply mt-2 text-body-3 tracking-normal leading-[14px] line-clamp-2 overflow-ellipsis overflow-hidden;
     }
 }
+
+.empty {
+    @apply text-gray text-body-3 h-full flex items-center justify-center;
+}
+
+.loader {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 12px solid #0000;
+    position: relative;
+    animation: s4 1s infinite linear;
+    @apply border-r-primary border-opacity-35;
+}
+
+.loader:before,
+.loader:after {
+    content: "";
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    border: inherit;
+    animation: inherit;
+    animation-duration: 2s;
+}
+
+.loader:after {
+    animation-duration: 4s;
+}
+
+@keyframes s4 {
+    100% {
+        transform: rotate(1turn);
+    }
+}

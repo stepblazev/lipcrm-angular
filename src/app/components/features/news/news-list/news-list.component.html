@@ -1,15 +1,33 @@
 <div class="h-full p-3 flex flex-col items-stretch">
   <div class="flex items-center text-[20px] font-medium text-primary">
     Новости
-    <button *ngIf="allowAdd()" type="button" class="add-btn" (click)="news.setMode(news.ENewsModes.ADD)">+</button>
+    <button *ngIf="allowAdd()" type="button" class="add-btn" (click)="news.setMode(news.ENewsModes.ADD)" title="Добавить новость">
+      +
+    </button>
   </div>
-  <div class="mt-2 flex-grow overflow-y-scroll">
+  <div #scrollContainer class="mt-2 flex-grow overflow-y-scroll">
+    
     <div *ngFor="let item of news.news" class="news" (click)="news.toDetail(item)">
       <div class="flex justify-between items-end">
         <div class="news__title">{{ item.title }}</div>
         <div class="news__date">{{ item.getFormattedDate() }}</div>
       </div>
       <div class="news__content" [innerHTML]="item.content"></div>
+    </div>
+    
+    <div *ngIf="!news.news.length && !news.isLoading" class="empty">
+      Список новостей пуст
+    </div>
+
+    <div *ngIf="news.news.length !== news.total || news.isLoading"
+        [ngClass]="{
+            'opacity-100': news.isLoading,
+            'h-full': !news.news.length,
+            'mt-4': news.news.length
+        }"
+        class="flex items-center justify-center opacity-0 transition-[opacity] overflow-hidden"
+    >
+      <div class="loader"></div>
     </div>
   </div>
 </div>

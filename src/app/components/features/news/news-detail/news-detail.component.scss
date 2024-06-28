@@ -21,3 +21,43 @@
         @apply mt-2 flex-grow text-body-3 tracking-normal leading-4 overflow-y-scroll;
     }
 }
+
+.loading {
+    @apply absolute top-0 left-0 z-10 w-full h-full backdrop-blur-sm bg-primary bg-opacity-15 transition-all duration-[400ms] flex items-center justify-center invisible opacity-0;
+    
+    &._active {
+        @apply visible opacity-100;
+    }
+    
+    .loader {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        border: 12px solid #0000;
+        position: relative;
+        animation: s4 1s infinite linear;
+        @apply border-r-primary border-opacity-35;
+    }
+    
+    .loader:before,
+    .loader:after {
+        content: "";
+        position: absolute;
+        inset: -8px;
+        border-radius: 50%;
+        border: inherit;
+        animation: inherit;
+        animation-duration: 2s;
+    }
+    
+    .loader:after {
+        animation-duration: 4s;
+    }
+    
+    @keyframes s4 {
+        100% {
+            transform: rotate(1turn);
+        }
+    }
+}
+

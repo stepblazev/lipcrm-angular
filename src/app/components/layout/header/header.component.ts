@@ -44,7 +44,7 @@ export class HeaderComponent implements OnInit{
   public ngOnInit(): void {
     if (this.userService.currentUser) {
         this.links = menuLinks[this.userService.currentUser.role.name];
-        if (this.userService.currentUser.role.name === ERoleTypes.ADMIN) {
+        if (this.isAdmin()) {
             this.settingLinks = settingLinks;
         }
     }

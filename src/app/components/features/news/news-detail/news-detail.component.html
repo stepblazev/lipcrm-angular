@@ -1,4 +1,4 @@
-<div class="p-5 pt-3 h-full max-h-full flex flex-col items-stretch">
+<div class="p-5 pt-3 h-full max-h-full relative flex flex-col items-stretch">
     <button type="button" class="back-btn" (click)="news.setMode(news.ENewsModes.LIST)">
         <fa-icon [icon]="backIcon" class="mr-2 text-[14px]" />
         Назад
@@ -10,10 +10,14 @@
             <div class="news__title">{{ news.detail.title }}</div>
         </div>
         <div class="news__content" [innerHTML]="news.detail.content"></div>
-        <button *ngIf="allowDelete()" type="button" class="btn-alt btn-alt--error mt-2" (click)="delete()">
+        <button type="button" class="btn-alt btn-alt--error mt-2" (click)="delete()">
             <fa-icon [icon]="deleteIcon" />
             Удалить
         </button>
+    </div>
+    
+    <div class="loading" [ngClass]="{'_active': isDeleting}">
+        <div class="loader"></div>
     </div>
     
 </div>
