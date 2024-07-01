@@ -11,6 +11,7 @@ import { ERoleTypes } from './modules/user/models/role';
 import { RedirectComponent } from './components/redirect.component';
 import { AdminsDetailComponent } from './components/pages/admins/admins-detail/admins-detail.component';
 import { AdminDetailResolver } from './modules/admins/resolvers/admin-detail.resolver';
+import { WorkweekComponent } from './components/settings/workweek/workweek.component';
 
 export const routes: Routes = [
   {
@@ -110,7 +111,7 @@ export const routes: Routes = [
       {
         path: 'workweek',
         title: 'Рабочая неделя',
-        component: HomeComponent,
+        component: WorkweekComponent,
       },
       {
         path: 'jobs',

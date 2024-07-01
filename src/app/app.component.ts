@@ -12,70 +12,70 @@ import { NewsComponent } from './components/features/news/news.component';
 import { ERoleTypes } from './modules/user/models/role';
 
 @Component({
-  standalone: true,
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  imports: [
-    RouterOutlet,
-    ConfirmComponent,
-    HeaderComponent,
-    CommonModule,
-    GloaderComponent,
-    NewsComponent
-  ],
+    standalone: true,
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    imports: [
+        RouterOutlet,
+        ConfirmComponent,
+        HeaderComponent,
+        CommonModule,
+        GloaderComponent,
+        NewsComponent
+    ],
 })
 export class AppComponent implements OnInit {
-  title = 'CRM';
-  
-  constructor(
-    private router: Router,
-    private userService: UserService,
-    private userRepository: UserRepository
-  ) {}
+    title = 'CRM';
 
-  public ngOnInit(): void {
-    // загружаем данные пользователя из LocalStorage (если есть)
-    this.userService.loadUser();
+    constructor(
+        private router: Router,
+        private userService: UserService,
+        private userRepository: UserRepository
+    ) { }
 
-    // FIXME логику можно вынести
-    if (!this.userService.isAuthorized) return;
-    // отправляем запрос на сервер для получение актуальных данных пользователя
-    this.userRepository.me()
-      .pipe(
-        first(),
-        catchError<IMeResponseDTO, ObservableInput<IMeResponseDTO>>(
-          (selector) => {
-            // в случае ошибки выходим из учетной записи в браузере
-            this.userService.logout();
-            this.router.navigate(['auth']);
-            return selector;
-          }
-        )
-      )
-      .subscribe((response) => {
-        if (response.success) {
-          // если все успешно, обновляем данные
-          this.userService.authorize(response.data);
-        } else {
-          // если нет, выходим из учетной записи в браузере
-          this.userService.logout();
-          this.router.navigate(['auth']);
-        }
-      });
-  }
+    public ngOnInit(): void {
+        // загружаем данные пользователя из LocalStorage (если есть)
+        this.userService.loadUser();
 
-  public isActiveRoute(path: string): boolean {
-    const options: IsActiveMatchOptions = {
-      paths: 'exact',
-      queryParams: 'ignored',
-      fragment: 'ignored',
-      matrixParams: 'ignored',
-    };
+        // FIXME логику можно вынести
+        if (!this.userService.isAuthorized) return;
+        // отправляем запрос на сервер для получение актуальных данных пользователя
+        this.userRepository.me()
+            .pipe(
+                first(),
+                catchError<IMeResponseDTO, ObservableInput<IMeResponseDTO>>(
+                    (selector) => {
+                        // в случае ошибки выходим из учетной записи в браузере
+                        this.userService.logout();
+                        this.router.navigate(['auth']);
+                        return selector;
+                    }
+                )
+            )
+            .subscribe((response) => {
+                if (response.success) {
+                    // если все успешно, обновляем данные
+                    this.userService.authorize(response.data);
+                } else {
+                    // если нет, выходим из учетной записи в браузере
+                    this.userService.logout();
+                    this.router.navigate(['auth']);
+                }
+            });
+    }
 
-    return this.router.isActive(path, options);
-  }
-  
-  public showNews(): boolean {
-    return !this.isActiveRoute('/auth') && this.userService.currentUser?.role.name !== ERoleTypes.SUPERADMIN;
-  }
+    public isActiveRoute(path: string): boolean {
+        const options: IsActiveMatchOptions = {
+            paths: 'exact',
+            queryParams: 'ignored',
+            fragment: 'ignored',
+            matrixParams: 'ignored',
+        };
+
+        return this.router.isActive(path, options);
+    }
+
+    public showNews(): boolean {
+        return !this.isActiveRoute('/auth') && this.userService.currentUser?.role.name !== ERoleTypes.SUPERADMIN;
+    }
 }
